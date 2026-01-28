@@ -1,0 +1,259 @@
+/**
+ * SEO Content Box Component
+ * Expandable content section for SEO-friendly long-form content
+ * @package TugasinWP
+ * @since 2.11.0 (Phase 22)
+ */
+
+/* ==========================================================================
+   SEO CONTENT BOX - PREMIUM DESIGN
+   ========================================================================== */
+.seo-content-box {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 24px;
+    padding: 48px;
+    margin-bottom: 48px;
+    position: relative;
+    box-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.05),
+        0 10px 15px -3px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    overflow: hidden;
+}
+
+/* Decorative background pattern */
+.seo-content-box::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.06) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* Short content - no expand needed */
+.seo-content-box.seo-content-short {
+    padding-bottom: 48px;
+}
+
+/* Inner content wrapper */
+.seo-content-inner {
+    position: relative;
+    z-index: 1;
+}
+
+/* Visible section */
+.seo-content-visible {
+    position: relative;
+    z-index: 1;
+}
+
+/* Hidden section - crawler-friendly (uses max-height, not display:none) */
+.seo-content-hidden {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0.3;
+    filter: blur(2px);
+    transition: all 0.5s ease;
+    position: relative;
+}
+
+/* Expanded state */
+.seo-content-box.expanded .seo-content-hidden {
+    max-height: 5000px;
+    /* Large enough for any content */
+    opacity: 1;
+    filter: none;
+    margin-top: 0;
+}
+
+/* ==========================================================================
+   GRADIENT FADE OVERLAY
+   ========================================================================== */
+.seo-content-fade {
+    position: absolute;
+    bottom: 80px;
+    left: 0;
+    right: 0;
+    height: 150px;
+    background: linear-gradient(to bottom,
+            transparent 0%,
+            rgba(248, 250, 252, 0.5) 30%,
+            rgba(241, 245, 249, 0.9) 70%,
+            #f1f5f9 100%);
+    pointer-events: none;
+    z-index: 2;
+    transition: opacity 0.3s ease;
+}
+
+.seo-content-box.expanded .seo-content-fade {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.seo-content-box.seo-content-short .seo-content-fade {
+    display: none;
+}
+
+/* ==========================================================================
+   EXPAND/COLLAPSE BUTTON - PREMIUM STYLE
+   ========================================================================== */
+.seo-content-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: auto;
+    margin: 20px auto 0;
+    padding: 14px 32px;
+    background: linear-gradient(135deg, var(--primary) 0%, #0a684d 100%);
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 5;
+    box-shadow:
+        0 4px 15px rgba(16, 185, 129, 0.3),
+        0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.seo-content-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 6px 20px rgba(16, 185, 129, 0.4),
+        0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.seo-content-toggle:active {
+    transform: translateY(0);
+}
+
+.seo-content-toggle i {
+    transition: transform 0.3s ease;
+    font-size: 0.85rem;
+}
+
+.seo-content-box.expanded .seo-content-toggle i {
+    transform: rotate(180deg);
+}
+
+.seo-content-box.expanded .seo-content-toggle {
+    background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+    box-shadow:
+        0 4px 15px rgba(100, 116, 139, 0.3),
+        0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* No button for short content */
+.seo-content-box.seo-content-short .seo-content-toggle {
+    display: none;
+}
+
+/* ==========================================================================
+   ENTRY CONTENT STYLING (inside SEO box)
+   ========================================================================== */
+.seo-content-box .entry-content h2 {
+    font-size: 1.5rem;
+    margin-top: 32px;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+    position: relative;
+    display: inline-block;
+}
+
+.seo-content-box .entry-content h2::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), transparent);
+    border-radius: 2px;
+}
+
+.seo-content-box .entry-content h2:first-child {
+    margin-top: 0;
+}
+
+.seo-content-box .entry-content h3 {
+    font-size: 1.25rem;
+    margin-top: 24px;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
+.seo-content-box .entry-content p {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 16px;
+}
+
+.seo-content-box .entry-content ul,
+.seo-content-box .entry-content ol {
+    margin-bottom: 16px;
+    padding-left: 24px;
+    color: var(--text-secondary);
+}
+
+.seo-content-box .entry-content li {
+    margin-bottom: 8px;
+    line-height: 1.7;
+}
+
+.seo-content-box .entry-content a {
+    color: var(--primary);
+    text-decoration: underline;
+}
+
+.seo-content-box .entry-content a:hover {
+    color: #0a684d;
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVE
+   ========================================================================== */
+@media (max-width: 768px) {
+    .seo-content-box {
+        padding: 28px;
+        border-radius: 20px;
+        margin-bottom: 32px;
+    }
+
+    .seo-content-box::before {
+        width: 200px;
+        height: 200px;
+        top: -30%;
+        right: -15%;
+    }
+
+    .seo-content-fade {
+        height: 100px;
+        bottom: 70px;
+    }
+
+    .seo-content-toggle {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+        width: 100%;
+    }
+
+    .seo-content-box .entry-content h2 {
+        font-size: 1.25rem;
+    }
+
+    .seo-content-box .entry-content h3 {
+        font-size: 1.1rem;
+    }
+
+    .seo-content-box .entry-content p {
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+}

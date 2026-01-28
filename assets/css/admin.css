@@ -1,0 +1,55 @@
+/**
+ * TugasinWP Admin Styles
+ *
+ * @package TugasinWP
+ * @since 1.0.0
+ */
+
+/* Settings Page */
+.tugasin-settings-wrap {
+    max-width: 800px;
+}
+
+.tugasin-settings-wrap h1 {
+    color: #064e3b;
+}
+
+.tugasin-settings-wrap .form-table th {
+    width: 200px;
+}
+
+/* Color Picker Enhancements */
+.wp-picker-container {
+    display: inline-block;
+}
+
+.wp-picker-container .wp-color-result.button {
+    margin-right: 6px;
+}
+
+/* Custom Meta Box Styling */
+.acf-field .acf-label label {
+    font-weight: 600;
+    color: #1e293b;
+}
+
+/* Dashboard Widget */
+.tugasin-dashboard-widget {
+    padding: 12px;
+}
+
+.tugasin-dashboard-widget .stat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.tugasin-dashboard-widget .stat-item:last-child {
+    border-bottom: none;
+}
+
+.tugasin-dashboard-widget .stat-value {
+    font-weight: 700;
+    color: #064e3b;
+}

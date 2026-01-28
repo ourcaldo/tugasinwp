@@ -1,0 +1,39 @@
+﻿/*
+Theme Name: TugasinWP
+Theme URI: https://tugasin.com
+Author: Tugasin Team
+Author URI: https://tugasin.com
+Description: A modern, soft, and playful academic assistance theme for Indonesian students. Features Custom Post Types for Majors and Universities, Elementor compatibility, and One-Click Demo Import.
+Version: 2.25.0
+Requires at least: 6.0
+Tested up to: 6.4
+Requires PHP: 8.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: tugasin
+Tags: education, custom-colors, custom-logo, custom-menu, featured-images, footer-widgets, full-width-template, theme-options, translation-ready, blog
+
+TugasinWP WordPress Theme, (C) 2026 Tugasin
+TugasinWP is distributed under the terms of the GNU GPL.
+*/
+
+/* 
+   ==========================================================================
+   TugasinWP V2 Design System
+   ==========================================================================
+   
+   CSS Architecture (Phase 27: Performance Optimized):
+   - critical.css     → Inlined in <head> (above-the-fold styles)
+   - main-bundle.css  → Loaded as single file (all other styles)
+   
+   Source Files (for development - edit these, then rebuild bundles):
+   - assets/css/base/       → Variables, reset, typography
+   - assets/css/utilities/  → Accessibility, animations
+   - assets/css/layout/     → Grids, header, footer, hero
+   - assets/css/components/ → Buttons, cards, forms, FAQ, TOC
+   - assets/css/pages/      → Single post, archive, CPT-specific
+   - assets/css/_responsive.css → All media queries
+
+   To rebuild bundles after editing source files, run:
+   See htaccess-performance.txt for the PowerShell command.
+*/

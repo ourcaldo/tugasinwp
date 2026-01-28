@@ -1,0 +1,452 @@
+/**
+ * Responsive Styles
+ * Media queries for tablet and mobile devices
+ * @package TugasinWP
+ * @since 2.9.0
+ */
+
+/* =========================================
+   Mobile Menu Core Styles 
+   (Applied when menu is visible)
+   ========================================= */
+
+/* Menu Toggle Button - stays in header flow by default */
+.mobile-toggle {
+    display: none;
+    /* Hidden on desktop, shown via media query */
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    z-index: 10;
+    position: relative;
+}
+
+/* When menu is open, lift toggle above menu overlay */
+body.menu-open .mobile-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 3000;
+    /* Above menu's 2000 */
+    color: var(--text-primary);
+}
+
+/* Mobile Menu Container */
+.mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    /* Hidden off-screen */
+    width: 300px;
+    /* Tablet/Desktop Drawer width */
+    height: auto;
+    /* Allow height to fit content */
+    max-height: 90vh;
+    /* Don't cover full screen if not needed */
+    bottom: auto;
+    background: #ffffff;
+    z-index: 2000;
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+    padding: 80px 20px 40px;
+    box-shadow: -5px 10px 25px rgba(0, 0, 0, 0.15);
+    display: block !important;
+    /* Override layout CSS */
+    visibility: hidden;
+    /* Hide visibility when off-screen to prevent focus */
+    border-bottom-left-radius: 20px;
+}
+
+.mobile-menu.active {
+    right: 0;
+    visibility: visible;
+}
+
+/* Mobile Menu Header with Logo and Close Button */
+.mobile-menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f3f4f6;
+    margin: -80px -20px 16px -20px;
+    /* Offset the mobile-menu padding */
+    padding-top: 20px;
+    background: #fff;
+}
+
+.mobile-menu-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.mobile-menu-logo img {
+    max-height: 32px;
+    width: auto;
+}
+
+.mobile-menu-logo .logo-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--primary);
+    color: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+/* Close button inside menu header */
+.mobile-menu-close {
+    width: 40px;
+    height: 40px;
+    background: #f3f4f6;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.mobile-menu-close:hover {
+    background: #e5e7eb;
+    transform: scale(1.1);
+}
+
+/* Menu Links */
+.mobile-menu-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-decoration: none;
+    border-bottom: 1px solid #f3f4f6;
+    transition: background 0.2s;
+    border-radius: 8px;
+}
+
+.mobile-menu-link:hover {
+    background: #f9fafb;
+    color: var(--primary);
+}
+
+/* Accordion Styles */
+.mobile-accordion {
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.accordion-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: background 0.2s;
+    border-radius: 8px;
+}
+
+.accordion-header:hover {
+    background: #f9fafb;
+}
+
+.accordion-header span {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.accordion-icon {
+    transition: transform 0.3s ease;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.accordion-header.active .accordion-icon {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    display: none;
+    background: #f9fafb;
+    padding: 8px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+}
+
+.accordion-content.active {
+    display: block;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.accordion-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    text-decoration: none;
+    color: var(--text-primary);
+    border-radius: 10px;
+    margin-bottom: 4px;
+    transition: all 0.2s;
+}
+
+.accordion-item:hover {
+    background: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transform: translateX(4px);
+}
+
+.accordion-item-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.9rem;
+}
+
+.accordion-item strong {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 2px;
+}
+
+.accordion-item span {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+/* CTA Button */
+.mobile-cta {
+    margin-top: 24px;
+    width: 100%;
+    justify-content: center;
+    padding: 14px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+/* =========================================
+   Tablet Media Query (max-width: 1024px)
+   ========================================= */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0 24px;
+    }
+
+    .hero-content h1 {
+        font-size: 3rem;
+    }
+
+    /* Stack sidebar layouts on tablet */
+    .page-sidebar-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    /* Hide Desktop Nav stuff */
+    .service-menu,
+    .service-menu-enhanced {
+        width: auto;
+    }
+
+    .nav-desktop {
+        display: none;
+    }
+
+    .mobile-toggle {
+        display: block;
+    }
+
+    /* Hide CTA button on tablet to prevent overlap with hamburger */
+    .header-actions .btn {
+        display: none;
+    }
+
+    /* Wider mobile menu for tablet screens */
+    .mobile-menu {
+        width: 380px;
+    }
+}
+
+
+/* =========================================
+   Mobile Media Query (max-width: 768px)
+   ========================================= */
+@media (max-width: 768px) {
+
+    /* Layout Grids - Stack them */
+    .tugasin-grid-4,
+    .tugasin-grid-3,
+    .tugasin-grid-2,
+    .values-grid,
+    .services-grid,
+    .hero-grid,
+    .footer-grid,
+    .talent-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .cpt-grid-2 {
+        grid-template-columns: 1fr;
+    }
+
+    /* Hero adjustments */
+    .hero {
+        padding: 40px 0 60px;
+        clip-path: none;
+        text-align: center;
+    }
+
+    .hero-content {
+        order: 1;
+    }
+
+    .hero-visual {
+        order: 0;
+        height: 280px;
+        margin-bottom: 20px;
+    }
+
+    .hero-grid {
+        gap: 32px;
+    }
+
+    .hero-content h1 {
+        font-size: 2.25rem;
+    }
+
+    .hero-btns {
+        justify-content: center;
+    }
+
+    /* Mobile Menu Full Width */
+    .mobile-menu {
+        width: 100%;
+        /* Full screen on mobile */
+        right: -100%;
+    }
+
+    /* Cards */
+    .service-card,
+    .value-card {
+        padding: 24px;
+    }
+
+    .talent-card {
+        max-width: 100%;
+    }
+
+    /* Footer */
+    .footer-grid {
+        gap: 40px;
+        text-align: center;
+    }
+
+    .brand p {
+        margin: 16px auto 0;
+    }
+
+    /* Section Headers */
+    .section-header h2,
+    .section-center h2 {
+        font-size: 1.75rem;
+    }
+
+    /* Process Timeline */
+    .process-timeline {
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
+
+    .process-timeline-separator {
+        width: 4px;
+        height: 30px;
+        margin: 0;
+    }
+
+    /* Carousel adjustments */
+    .talent-carousel-wrapper {
+        position: relative;
+        top: auto;
+        right: auto;
+        left: auto;
+        width: 100%;
+        height: 300px;
+        margin: 0 auto;
+    }
+
+    .tutor-carousel {
+        width: 100%;
+        max-width: 100%;
+        height: 280px;
+    }
+
+    .tutor-card {
+        width: 85%;
+        padding: 20px;
+    }
+}
+
+/* Small Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+    .container {
+        padding: 0 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 1.8rem;
+    }
+
+    .value-card .icon-box {
+        width: 48px;
+        height: 48px;
+        font-size: 1.1rem;
+    }
+
+    .service-card h3 {
+        font-size: 1.5rem;
+    }
+}

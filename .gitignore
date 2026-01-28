@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Build artifacts that will be regenerated
+# (main-bundle.css is kept in repo for now, but workflow will regenerate it)
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+*.swo
+.idea/
+.vscode/
+
+# WordPress
+wp-config.php
+*.log

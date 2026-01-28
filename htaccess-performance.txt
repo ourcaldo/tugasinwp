@@ -1,0 +1,95 @@
+# ==============================================
+# TugasinWP Performance Optimization
+# Phase 27: Browser Caching Rules
+# ==============================================
+# 
+# NOTE: These rules should be added to your WordPress root .htaccess file
+# If you are using Nginx instead of Apache, add equivalent rules to your server config
+#
+# Copy the content below and paste it into your site's .htaccess file
+# (usually located at the root of your WordPress installation)
+# ==============================================
+
+# BEGIN TugasinWP Performance
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # Images - Cache for 1 year
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType image/ico "access plus 1 year"
+    
+    # Web Fonts - Cache for 1 year
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/otf "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+    ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
+    
+    # CSS and JavaScript - Cache for 1 month
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType application/x-javascript "access plus 1 month"
+    
+    # Documents - Cache for 1 month
+    ExpiresByType application/pdf "access plus 1 month"
+    
+    # Default - Cache for 2 days
+    ExpiresDefault "access plus 2 days"
+</IfModule>
+
+# Cache-Control Headers
+<IfModule mod_headers.c>
+    # 1 Year for static assets
+    <FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|webp|svg|swf|woff|woff2|ttf|otf|eot)$">
+        Header set Cache-Control "max-age=31536000, public"
+    </FilesMatch>
+    
+    # 1 Month for CSS and JS
+    <FilesMatch "\.(css|js)$">
+        Header set Cache-Control "max-age=2628000, public"
+    </FilesMatch>
+    
+    # No cache for HTML and PHP
+    <FilesMatch "\.(html|htm|php)$">
+        Header set Cache-Control "max-age=0, private, no-store, no-cache, must-revalidate"
+    </FilesMatch>
+</IfModule>
+
+# Gzip Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE image/x-icon
+    AddOutputFilterByType DEFLATE image/svg+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/x-font
+    AddOutputFilterByType DEFLATE application/x-font-truetype
+    AddOutputFilterByType DEFLATE application/x-font-ttf
+    AddOutputFilterByType DEFLATE application/x-font-otf
+    AddOutputFilterByType DEFLATE application/x-font-opentype
+    AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+    AddOutputFilterByType DEFLATE font/ttf
+    AddOutputFilterByType DEFLATE font/otf
+    AddOutputFilterByType DEFLATE font/opentype
+    AddOutputFilterByType DEFLATE font/woff
+    AddOutputFilterByType DEFLATE font/woff2
+</IfModule>
+
+# END TugasinWP Performance

@@ -1,0 +1,52 @@
+/**
+ * TugasinWP - Local Font Hosting
+ * Plus Jakarta Sans - Self-hosted for better performance and GDPR compliance
+ * 
+ * @package TugasinWP
+ * @since 2.8.0
+ */
+
+/* Plus Jakarta Sans - Regular (400) */
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/plus-jakarta-sans/PlusJakartaSans-Regular.ttf') format('truetype');
+}
+
+/* Plus Jakarta Sans - Medium (500) */
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../fonts/plus-jakarta-sans/PlusJakartaSans-Medium.ttf') format('truetype');
+}
+
+/* Plus Jakarta Sans - SemiBold (600) */
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../fonts/plus-jakarta-sans/PlusJakartaSans-SemiBold.ttf') format('truetype');
+}
+
+/* Plus Jakarta Sans - Bold (700) */
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/plus-jakarta-sans/PlusJakartaSans-Bold.ttf') format('truetype');
+}
+
+/* Plus Jakarta Sans - ExtraBold (800) */
+@font-face {
+    font-family: 'Plus Jakarta Sans';
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url('../fonts/plus-jakarta-sans/PlusJakartaSans-ExtraBold.ttf') format('truetype');
+}

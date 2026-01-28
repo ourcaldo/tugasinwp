@@ -1,0 +1,41 @@
+/**
+ * TugasinWP Design Tokens (CSS Custom Properties)
+ * @package TugasinWP
+ * @since 2.9.0
+ */
+
+:root {
+    /* Colors */
+    --primary: #064e3b;
+    /* Dark Green (Hero) */
+    --primary-light: #34d399;
+    /* Mint Green Accent */
+    --accent-btn: #86efac;
+    /* Bright Green Button */
+
+    --text-primary: #111827;
+    --text-secondary: #6b7280;
+    --text-white: #ffffff;
+
+    --bg-body: #ffffff;
+    --bg-light: #f9fafb;
+
+    /* Pastel Accents */
+    --pastel-indigo: #e0e7ff;
+    --pastel-yellow: #fef3c7;
+    --pastel-green: #d1fae5;
+    --pastel-gray: #e5e7eb;
+    --pastel-purple: #f3e8ff;
+
+    /* Metrics */
+    --radius-md: 12px;
+    --radius-lg: 24px;
+    --radius-full: 999px;
+
+    --container: 1280px;
+    --section-pad: 120px;
+
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}

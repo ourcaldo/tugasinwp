@@ -1,0 +1,64 @@
+/**
+ * FAQ Accordion
+ * FAQ item, header, content, icon animations
+ * @package TugasinWP
+ * @since 2.9.0
+ */
+
+.faq-item {
+    background: var(--bg-light);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    background: #f3f4f6;
+}
+
+.faq-item.active {
+    background: white;
+    box-shadow: var(--shadow-md);
+}
+
+.faq-header {
+    width: 100%;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: left;
+    color: var(--text-primary);
+}
+
+.faq-header span {
+    display: flex;
+    align-items: center;
+}
+
+.faq-icon {
+    transition: transform 0.3s ease;
+    color: var(--text-secondary);
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(180deg);
+    color: var(--primary);
+}
+
+.faq-content {
+    display: none;
+    padding: 0 24px 20px;
+}
+
+.faq-content p {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin: 0;
+}

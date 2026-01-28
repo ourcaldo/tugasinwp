@@ -1,0 +1,124 @@
+# TugasinWP Translation File
+# Copyright (C) 2026 Tugasin
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: TugasinWP 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-10 00:00+0000\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: id_ID\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: inc/template-tags.php
+msgid "Home"
+msgstr "Beranda"
+
+#: inc/template-tags.php
+msgid "Kamus Jurusan"
+msgstr "Kamus Jurusan"
+
+#: inc/template-tags.php
+msgid "Kamus Kampus"
+msgstr "Kamus Kampus"
+
+#: inc/template-tags.php
+msgid "Blog"
+msgstr "Blog"
+
+#: inc/template-tags.php
+msgid "Search Results"
+msgstr "Hasil Pencarian"
+
+#: inc/template-tags.php
+msgid "404 Error"
+msgstr "Halaman Tidak Ditemukan"
+
+#: template-parts/header/navigation.php
+msgid "Services"
+msgstr "Layanan"
+
+#: template-parts/header/navigation.php
+msgid "Resources"
+msgstr "Sumber Daya"
+
+#: template-parts/header/navigation.php
+msgid "Lihat Semua Layanan"
+msgstr "Lihat Semua Layanan"
+
+#: template-parts/header/navigation.php
+msgid "Joki Skripsi"
+msgstr "Joki Skripsi"
+
+#: template-parts/header/navigation.php
+msgid "Joki Makalah"
+msgstr "Joki Makalah"
+
+#: template-parts/header/navigation.php
+msgid "Joki Tugas"
+msgstr "Joki Tugas"
+
+#: template-parts/header/navigation.php
+msgid "Cek Plagiarism"
+msgstr "Cek Plagiarism"
+
+#: header.php
+msgid "Hubungi"
+msgstr "Hubungi"
+
+#: 404.php
+msgid "Oops! Halaman Tidak Ditemukan"
+msgstr "Oops! Halaman Tidak Ditemukan"
+
+#: 404.php
+msgid "Kembali ke Home"
+msgstr "Kembali ke Beranda"
+
+#: front-page.php
+msgid "Deadline Mepet?"
+msgstr "Deadline Mepet?"
+
+#: front-page.php
+msgid "Tugasin Aja!"
+msgstr "Tugasin Aja!"
+
+#: front-page.php
+msgid "Konsultasi Gratis"
+msgstr "Konsultasi Gratis"
+
+#: archive-major.php
+msgid "Explore Jurusan Kuliah"
+msgstr "Eksplorasi Jurusan Kuliah"
+
+#: archive-university.php
+msgid "Cari Kampus Impianmu"
+msgstr "Cari Kampus Impianmu"
+
+#: single-major.php
+msgid "Apa yang Dipelajari?"
+msgstr "Apa yang Dipelajari?"
+
+#: single-major.php
+msgid "Mata Kuliah Utama"
+msgstr "Mata Kuliah Utama"
+
+#: single-major.php
+msgid "Prospek Kerja"
+msgstr "Prospek Kerja"
+
+#: single-university.php
+msgid "Tentang Kampus"
+msgstr "Tentang Kampus"
+
+#: single-university.php
+msgid "Fakultas & Program Studi"
+msgstr "Fakultas & Program Studi"
+
+#: single-university.php
+msgid "Jalur Masuk"
+msgstr "Jalur Masuk"

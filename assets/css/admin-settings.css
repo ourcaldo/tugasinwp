@@ -1,0 +1,1045 @@
+/**
+ * TugasinWP Admin Settings Styles
+ * 
+ * Modern, branded admin UI with sidebar navigation for the TugasinWP theme settings page.
+ * 
+ * @package TugasinWP
+ * @since 2.8.0
+ */
+
+/* ==========================================================================
+   CSS VARIABLES
+   ========================================================================== */
+:root {
+    --tugasin-primary: #064e3b;
+    --tugasin-primary-light: #059669;
+    --tugasin-primary-dark: #022c22;
+    --tugasin-accent: #10b981;
+    --tugasin-pastel-green: #d1fae5;
+    --tugasin-pastel-indigo: #e0e7ff;
+    --tugasin-text-primary: #1f2937;
+    --tugasin-text-secondary: #6b7280;
+    --tugasin-bg-light: #f9fafb;
+    --tugasin-white: #ffffff;
+    --tugasin-border: #e5e7eb;
+    --tugasin-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --tugasin-shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+    --tugasin-radius: 12px;
+    --tugasin-radius-sm: 8px;
+    --tugasin-sidebar-width: 260px;
+    --tugasin-sidebar-bg: #1e293b;
+    --tugasin-sidebar-text: #94a3b8;
+    --tugasin-sidebar-hover: rgba(255, 255, 255, 0.1);
+}
+
+/* ==========================================================================
+   MAIN WRAPPER - SIDEBAR LAYOUT
+   ========================================================================== */
+.tugasin-settings-wrap {
+    display: grid;
+    grid-template-columns: var(--tugasin-sidebar-width) 1fr;
+    grid-template-rows: auto 1fr auto;
+    min-height: 700px;
+    max-width: 1200px;
+    margin: 20px 20px 20px 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--tugasin-white);
+    border-radius: var(--tugasin-radius);
+    box-shadow: var(--tugasin-shadow-lg);
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   HEADER BANNER - SPANS FULL WIDTH
+   ========================================================================== */
+.tugasin-settings-header {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, var(--tugasin-primary) 0%, var(--tugasin-primary-light) 100%);
+    color: var(--tugasin-white);
+    padding: 24px 32px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.tugasin-settings-header .header-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.tugasin-settings-header .header-icon .dashicons {
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+}
+
+.tugasin-settings-header .header-content {
+    flex: 1;
+}
+
+.tugasin-settings-header h1 {
+    margin: 0 0 2px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--tugasin-white);
+}
+
+.tugasin-settings-header .header-subtitle {
+    margin: 0;
+    font-size: 13px;
+    opacity: 0.85;
+}
+
+.tugasin-settings-header .version-badge {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 5px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   SIDEBAR NAVIGATION
+   ========================================================================== */
+.tugasin-settings-sidebar {
+    background: var(--tugasin-sidebar-bg);
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.tugasin-settings-nav {
+    flex: 1;
+}
+
+.tugasin-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 24px;
+    color: var(--tugasin-sidebar-text);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+    cursor: pointer;
+    background: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: none;
+    width: 100%;
+    text-align: left;
+}
+
+.tugasin-nav-item:hover {
+    background: var(--tugasin-sidebar-hover);
+    color: var(--tugasin-white);
+}
+
+.tugasin-nav-item.active {
+    background: var(--tugasin-sidebar-hover);
+    color: var(--tugasin-white);
+    border-left-color: var(--tugasin-accent);
+}
+
+.tugasin-nav-item .dashicons {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    opacity: 0.8;
+}
+
+.tugasin-nav-item.active .dashicons {
+    opacity: 1;
+    color: var(--tugasin-accent);
+}
+
+.tugasin-nav-separator {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 12px 24px;
+}
+
+.tugasin-nav-label {
+    padding: 8px 24px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* ==========================================================================
+   MAIN CONTENT AREA
+   ========================================================================== */
+.tugasin-settings-main {
+    padding: 32px 40px;
+    overflow-y: auto;
+    background: var(--tugasin-white);
+}
+
+.tugasin-settings-section {
+    display: none;
+}
+
+.tugasin-settings-section.active {
+    display: block;
+}
+
+.tugasin-section-header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--tugasin-border);
+}
+
+.tugasin-section-header h2 {
+    margin: 0 0 4px;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--tugasin-text-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tugasin-section-header h2 .dashicons {
+    color: var(--tugasin-primary);
+}
+
+.tugasin-section-header p {
+    margin: 0;
+    color: var(--tugasin-text-secondary);
+    font-size: 13px;
+}
+
+/* ==========================================================================
+   SECTION CARDS
+   ========================================================================== */
+.tugasin-section-card {
+    background: var(--tugasin-bg-light);
+    border-radius: var(--tugasin-radius-sm);
+    padding: 24px;
+    margin-bottom: 24px;
+    border: 1px solid var(--tugasin-border);
+}
+
+.tugasin-section-card:last-child {
+    margin-bottom: 0;
+}
+
+.tugasin-section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 16px;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--tugasin-text-primary);
+}
+
+.tugasin-section-title .dashicons {
+    color: var(--tugasin-primary);
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+.tugasin-section-desc {
+    color: var(--tugasin-text-secondary);
+    font-size: 13px;
+    margin-bottom: 20px;
+}
+
+/* ==========================================================================
+   FORM FIELDS
+   ========================================================================== */
+.tugasin-field-row {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 16px;
+    align-items: start;
+    margin-bottom: 20px;
+}
+
+.tugasin-field-row:last-child {
+    margin-bottom: 0;
+}
+
+.tugasin-field-label {
+    font-weight: 600;
+    color: var(--tugasin-text-primary);
+    font-size: 14px;
+    padding-top: 8px;
+}
+
+.tugasin-field-input input[type="text"],
+.tugasin-field-input input[type="number"],
+.tugasin-field-input input[type="url"],
+.tugasin-field-input textarea,
+.tugasin-field-input select {
+    width: 100%;
+    padding: 10px 14px;
+    border: 1px solid var(--tugasin-border);
+    border-radius: var(--tugasin-radius-sm);
+    font-size: 14px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background: var(--tugasin-white);
+}
+
+.tugasin-field-input input[type="text"]:focus,
+.tugasin-field-input input[type="number"]:focus,
+.tugasin-field-input input[type="url"]:focus,
+.tugasin-field-input textarea:focus,
+.tugasin-field-input select:focus {
+    outline: none;
+    border-color: var(--tugasin-primary);
+    box-shadow: 0 0 0 3px var(--tugasin-pastel-green);
+}
+
+.tugasin-field-input textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.tugasin-field-desc {
+    color: var(--tugasin-text-secondary);
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+/* Checkbox field */
+.tugasin-checkbox-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.tugasin-checkbox-row input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    accent-color: var(--tugasin-primary);
+}
+
+.tugasin-checkbox-label {
+    flex: 1;
+}
+
+.tugasin-checkbox-label strong {
+    display: block;
+    font-size: 14px;
+    color: var(--tugasin-text-primary);
+    margin-bottom: 2px;
+}
+
+.tugasin-checkbox-label span {
+    font-size: 12px;
+    color: var(--tugasin-text-secondary);
+}
+
+/* ==========================================================================
+   MEDIA UPLOADER
+   ========================================================================== */
+.tugasin-media-field {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.tugasin-media-preview-box {
+    width: 120px;
+    height: 80px;
+    background: var(--tugasin-white);
+    border: 2px dashed var(--tugasin-border);
+    border-radius: var(--tugasin-radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.tugasin-media-preview-box.has-image {
+    border-style: solid;
+}
+
+.tugasin-media-preview-box img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.tugasin-media-preview-box .placeholder-icon {
+    color: var(--tugasin-border);
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+}
+
+.tugasin-media-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+.tugasin-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 16px;
+    border-radius: var(--tugasin-radius-sm);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    border: none;
+}
+
+.tugasin-btn .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+.tugasin-btn-primary {
+    background: var(--tugasin-primary);
+    color: var(--tugasin-white);
+}
+
+.tugasin-btn-primary:hover {
+    background: var(--tugasin-primary-dark);
+}
+
+.tugasin-btn-secondary {
+    background: var(--tugasin-white);
+    color: var(--tugasin-text-secondary);
+    border: 1px solid var(--tugasin-border);
+}
+
+.tugasin-btn-secondary:hover {
+    background: var(--tugasin-bg-light);
+    color: var(--tugasin-text-primary);
+}
+
+.tugasin-btn-danger {
+    background: #fee2e2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+.tugasin-btn-danger:hover {
+    background: #fecaca;
+}
+
+/* ==========================================================================
+   PAGE MAPPING TABLE
+   ========================================================================== */
+.tugasin-page-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+}
+
+.tugasin-page-table th,
+.tugasin-page-table td {
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--tugasin-border);
+}
+
+.tugasin-page-table th {
+    background: var(--tugasin-white);
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--tugasin-text-secondary);
+}
+
+.tugasin-page-table td {
+    background: var(--tugasin-white);
+}
+
+.tugasin-page-table tr:last-child td {
+    border-bottom: none;
+}
+
+.tugasin-page-table select {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--tugasin-border);
+    border-radius: var(--tugasin-radius-sm);
+}
+
+.tugasin-page-table .slug-hint {
+    color: var(--tugasin-text-secondary);
+    font-size: 12px;
+}
+
+.tugasin-page-table .slug-hint code {
+    background: var(--tugasin-pastel-green);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 11px;
+}
+
+/* Read-only pages section */
+.tugasin-readonly-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--tugasin-white);
+    border-radius: var(--tugasin-radius-sm);
+    overflow: hidden;
+}
+
+.tugasin-readonly-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--tugasin-border);
+}
+
+.tugasin-readonly-table tr:last-child td {
+    border-bottom: none;
+}
+
+.tugasin-readonly-table .page-name {
+    font-weight: 600;
+    width: 140px;
+}
+
+.tugasin-readonly-table .page-value code {
+    background: var(--tugasin-bg-light);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.tugasin-readonly-table .page-action .button {
+    font-size: 12px;
+}
+
+/* ==========================================================================
+   SCHEMA SERVICE CARDS
+   ========================================================================== */
+.tugasin-schema-service {
+    background: var(--tugasin-white);
+    border: 1px solid var(--tugasin-border);
+    border-radius: var(--tugasin-radius-sm);
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+.tugasin-schema-service:last-child {
+    margin-bottom: 0;
+}
+
+.tugasin-schema-service-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: var(--tugasin-bg-light);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.tugasin-schema-service-header:hover {
+    background: var(--tugasin-pastel-green);
+}
+
+.tugasin-schema-service-header h4 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tugasin-schema-service-header .toggle-icon {
+    transition: transform 0.2s;
+}
+
+.tugasin-schema-service.open .toggle-icon {
+    transform: rotate(180deg);
+}
+
+.tugasin-schema-service-body {
+    display: none;
+    padding: 20px;
+    border-top: 1px solid var(--tugasin-border);
+}
+
+.tugasin-schema-service.open .tugasin-schema-service-body {
+    display: block;
+}
+
+/* ==========================================================================
+   ABOUT TAB
+   ========================================================================== */
+.tugasin-about-hero {
+    text-align: center;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, var(--tugasin-pastel-green) 0%, var(--tugasin-pastel-indigo) 100%);
+    border-radius: var(--tugasin-radius);
+    margin-bottom: 24px;
+}
+
+.tugasin-about-hero .hero-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--tugasin-primary);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+}
+
+.tugasin-about-hero .hero-icon .dashicons {
+    font-size: 40px;
+    width: 40px;
+    height: 40px;
+    color: var(--tugasin-white);
+}
+
+.tugasin-about-hero h2 {
+    margin: 0 0 8px;
+    font-size: 24px;
+    color: var(--tugasin-text-primary);
+}
+
+.tugasin-about-hero .tagline {
+    color: var(--tugasin-text-secondary);
+    font-size: 14px;
+}
+
+.tugasin-about-info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.tugasin-about-card {
+    background: var(--tugasin-bg-light);
+    padding: 20px;
+    border-radius: var(--tugasin-radius-sm);
+    text-align: center;
+}
+
+.tugasin-about-card .card-label {
+    font-size: 12px;
+    color: var(--tugasin-text-secondary);
+    margin-bottom: 4px;
+}
+
+.tugasin-about-card .card-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--tugasin-text-primary);
+}
+
+.tugasin-about-card .card-value a {
+    color: var(--tugasin-primary);
+    text-decoration: none;
+}
+
+.tugasin-about-card .card-value a:hover {
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   FOOTER / SUBMIT - SPANS FULL WIDTH
+   ========================================================================== */
+.tugasin-settings-footer {
+    grid-column: 1 / -1;
+    padding: 20px 32px;
+    background: var(--tugasin-bg-light);
+    border-top: 1px solid var(--tugasin-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tugasin-settings-footer .footer-note {
+    color: var(--tugasin-text-secondary);
+    font-size: 13px;
+}
+
+.tugasin-submit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--tugasin-primary);
+    color: var(--tugasin-white);
+    padding: 12px 28px;
+    border: none;
+    border-radius: var(--tugasin-radius-sm);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tugasin-submit-btn .dashicons {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+.tugasin-submit-btn:hover {
+    background: var(--tugasin-primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--tugasin-shadow);
+}
+
+/* ==========================================================================
+   SUCCESS/ERROR NOTICES
+   ========================================================================== */
+.tugasin-settings-wrap .notice {
+    margin: 0 0 20px;
+    border-radius: var(--tugasin-radius-sm);
+}
+
+/* ==========================================================================
+   RESPONSIVE
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .tugasin-settings-wrap {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto 1fr auto;
+    }
+
+    .tugasin-settings-sidebar {
+        padding: 0;
+        overflow-x: auto;
+    }
+
+    .tugasin-settings-nav {
+        display: flex;
+        padding: 0 16px;
+        gap: 4px;
+    }
+
+    .tugasin-nav-item {
+        padding: 12px 16px;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+        white-space: nowrap;
+    }
+
+    .tugasin-nav-item.active {
+        border-left-color: transparent;
+        border-bottom-color: var(--tugasin-accent);
+    }
+
+    .tugasin-nav-separator,
+    .tugasin-nav-label {
+        display: none;
+    }
+}
+
+@media (max-width: 782px) {
+    .tugasin-settings-wrap {
+        margin: 10px;
+    }
+
+    .tugasin-settings-header {
+        padding: 20px;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .tugasin-settings-main {
+        padding: 20px;
+    }
+
+    .tugasin-field-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .tugasin-about-info {
+        grid-template-columns: 1fr;
+    }
+
+    .tugasin-settings-footer {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .tugasin-field-row-2col {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================================================
+   TESTIMONIAL FIELDS
+   ========================================================================== */
+.tugasin-testimonial-item {
+    padding: 20px 0;
+}
+
+.tugasin-testimonial-item.has-border-top {
+    border-top: 1px solid var(--tugasin-border);
+    margin-top: 16px;
+}
+
+.testimonial-number {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--tugasin-primary);
+    margin: 0 0 16px;
+}
+
+/* 2-column layout for name/role */
+.tugasin-field-row-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.tugasin-field-col {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.tugasin-field-col input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--tugasin-border);
+    border-radius: var(--tugasin-radius-sm);
+    font-size: 14px;
+}
+
+.tugasin-field-col input:focus {
+    border-color: var(--tugasin-primary);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(6, 78, 59, 0.1);
+}
+
+/* Testimonial image field */
+.tugasin-testimonial-image-field {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.tugasin-testimonial-preview {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--tugasin-bg-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 2px solid var(--tugasin-border);
+}
+
+.tugasin-testimonial-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tugasin-testimonial-preview .dashicons {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    color: var(--tugasin-text-secondary);
+}
+
+.tugasin-testimonial-image-input {
+    flex: 1;
+}
+
+.tugasin-upload-image-btn {
+    flex-shrink: 0;
+}
+
+/* Custom testimonials wrapper */
+.tugasin-custom-testimonials-wrapper {
+    background: var(--tugasin-bg-light);
+    border-radius: var(--tugasin-radius-sm);
+    padding: 16px;
+    margin-top: 16px;
+}
+
+.custom-testimonials-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--tugasin-text-secondary);
+    margin: 0 0 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   OPTIMIZATION SECTION (Phase 28)
+   ========================================================================== */
+
+/* Optimization header with toggle */
+.tugasin-opt-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.tugasin-opt-header .opt-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+.tugasin-opt-header .tugasin-section-title {
+    margin: 0;
+}
+
+/* Toggle Switch */
+.tugasin-toggle {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 26px;
+    flex-shrink: 0;
+}
+
+.tugasin-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #d1d5db;
+    transition: 0.3s;
+    border-radius: 26px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.tugasin-toggle input:checked+.toggle-slider {
+    background-color: var(--tugasin-primary);
+}
+
+.tugasin-toggle input:checked+.toggle-slider:before {
+    transform: translateX(22px);
+}
+
+.tugasin-toggle input:focus+.toggle-slider {
+    box-shadow: 0 0 0 3px rgba(6, 78, 59, 0.2);
+}
+
+/* Help Icon */
+.tugasin-help-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    background: var(--tugasin-border);
+    color: var(--tugasin-text-secondary);
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: help;
+    transition: 0.2s;
+    position: relative;
+}
+
+.tugasin-help-icon:hover {
+    background: var(--tugasin-primary);
+    color: white;
+}
+
+/* Tooltip for help icon - uses data-tooltip attribute */
+.tugasin-help-icon::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1f2937;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    width: 280px;
+    max-width: 280px;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.2s;
+    pointer-events: none;
+    z-index: 100;
+    white-space: normal;
+    text-align: left;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.tugasin-help-icon::before {
+    content: "";
+    position: absolute;
+    bottom: calc(100% + 2px);
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: #1f2937;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.2s;
+    pointer-events: none;
+    z-index: 101;
+}
+
+.tugasin-help-icon:hover::after,
+.tugasin-help-icon:hover::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Conditional fields */
+.tugasin-opt-fields {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--tugasin-border);
+}
+
+/* Hidden state for conditional fields when toggle is off */
+.tugasin-opt-fields[data-hidden="true"] {
+    display: none;
+}

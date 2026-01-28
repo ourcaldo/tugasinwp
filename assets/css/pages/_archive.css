@@ -1,0 +1,50 @@
+/**
+ * Archive Pages
+ * Archive grids, filters, pagination
+ * @package TugasinWP
+ * @since 2.9.0
+ */
+
+/* Archive filter buttons are styled via _buttons.css */
+
+/* Archive loading state is in _animations.css */
+
+/* Archive card styles are in _cards.css */
+
+/* Pagination */
+.tugasin-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    gap: 8px;
+}
+
+.tugasin-pagination a,
+.tugasin-pagination span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.tugasin-pagination a {
+    background: white;
+    border: 2px solid #e5e7eb;
+    color: var(--text-primary);
+}
+
+.tugasin-pagination a:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.tugasin-pagination .current {
+    background: var(--primary);
+    color: white;
+    border: 2px solid var(--primary);
+}

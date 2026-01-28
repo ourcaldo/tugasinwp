@@ -1,0 +1,22 @@
+/**
+ * CSS Reset & Normalize
+ * @package TugasinWP
+ * @since 2.9.0
+ */
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}

@@ -1,0 +1,118 @@
+/**
+ * YouTube Facade Component
+ * Performance-optimized YouTube embed with thumbnail placeholder
+ * @package TugasinWP
+ * @since 2.13.0 (Phase 24)
+ */
+
+/* ==========================================================================
+   YOUTUBE FACADE - THUMBNAIL PLACEHOLDER
+   ========================================================================== */
+.youtube-facade {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.youtube-facade-thumbnail {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.youtube-facade:hover .youtube-facade-thumbnail {
+    transform: scale(1.05);
+}
+
+/* Play button */
+.youtube-facade-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 68px;
+    height: 48px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    z-index: 2;
+}
+
+.youtube-facade:hover .youtube-facade-play {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.youtube-facade-play svg {
+    width: 100%;
+    height: 100%;
+}
+
+.youtube-facade-play-bg {
+    transition: fill 0.2s ease, fill-opacity 0.2s ease;
+}
+
+.youtube-facade:hover .youtube-facade-play-bg {
+    fill: #ff0000;
+    fill-opacity: 1;
+}
+
+/* Loading state (when iframe is loading) */
+.youtube-facade.loading::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin: -20px 0 0 -20px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: youtube-spin 0.8s linear infinite;
+    z-index: 10;
+}
+
+.youtube-facade.loading .youtube-facade-play {
+    opacity: 0;
+}
+
+@keyframes youtube-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Iframe (injected via JS after click) */
+.youtube-facade iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    z-index: 5;
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVE
+   ========================================================================== */
+@media (max-width: 768px) {
+    .youtube-facade {
+        border-radius: 12px;
+    }
+
+    .youtube-facade-play {
+        width: 56px;
+        height: 40px;
+    }
+}

@@ -1,0 +1,165 @@
+/**
+ * Grid Utilities & Layout
+ * Container, section headers, page/sidebar layouts
+ * @package TugasinWP
+ * @since 2.9.0
+ */
+
+/* Single CPT Layouts */
+/* Page with Sidebar - Desktop: 2fr 1fr, Mobile: Stack */
+.page-sidebar-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 60px;
+}
+
+/* Faculty/Inner 2-column Grid */
+.cpt-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+/* Hero Breadcrumb Contrast Fix */
+.hero .tugasin-breadcrumb {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.hero .tugasin-breadcrumb .breadcrumb-link {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.hero .tugasin-breadcrumb .breadcrumb-link:hover {
+    color: white;
+}
+
+.hero .tugasin-breadcrumb .breadcrumb-current {
+    color: white;
+}
+
+.hero .tugasin-breadcrumb .breadcrumb-separator {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.7rem;
+    margin: 0 8px;
+}
+
+/* Utilities */
+.container {
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.section-header,
+.section-center {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 60px;
+}
+
+.section-header h2,
+.section-center h2 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    letter-spacing: -0.03em;
+}
+
+.section-header p,
+.section-center p {
+    color: var(--text-secondary);
+    font-size: 1.125rem;
+}
+
+/* Grid Utilities - Desktop Default */
+.tugasin-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.tugasin-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.tugasin-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+/* Process Timeline Component - Desktop */
+.process-timeline {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0;
+    max-width: 900px;
+    margin: 40px auto 0;
+}
+
+.process-timeline-step {
+    flex: 1;
+    text-align: center;
+}
+
+.process-timeline-separator {
+    flex: 0 0 60px;
+    height: 4px;
+    margin-top: 30px;
+    border-radius: 2px;
+}
+
+/* Breadcrumb Styles */
+.tugasin-breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 24px;
+    font-size: 0.9rem;
+}
+
+.breadcrumb-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.breadcrumb-link:hover {
+    color: var(--primary);
+}
+
+.breadcrumb-separator {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+    margin: 0 8px;
+}
+
+.breadcrumb-current {
+    color: var(--primary);
+    font-weight: 600;
+}
+
+/* Category Badge (shared) */
+.category-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    align-self: flex-start;
+}
+
+/* Pill Badge */
+.pill-badge {
+    display: inline-block;
+    background: var(--pastel-green);
+    color: #065f46;
+    padding: 8px 16px;
+    border-radius: var(--radius-full);
+    font-weight: 700;
+    margin-top: 16px;
+}

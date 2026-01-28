@@ -1,0 +1,475 @@
+/**
+ * Cards
+ * Service, value, blog, major, university, talent cards
+ * @package TugasinWP
+ * @since 2.9.0
+ */
+
+/* Values (Why Us) */
+.values {
+    padding: var(--section-pad) 0;
+    background: white;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 60px;
+}
+
+.value-card {
+    padding: 32px;
+    border-radius: var(--radius-lg);
+    background: white;
+    border: 1px solid #f3f4f6;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.value-card:hover {
+    box-shadow: var(--shadow-xl);
+    border-color: transparent;
+    transform: translateY(-5px);
+}
+
+.icon-box {
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin: 0 auto 24px;
+}
+
+.bg-purple {
+    background: var(--pastel-purple);
+    color: #9333ea;
+}
+
+.bg-yellow {
+    background: var(--pastel-yellow);
+    color: #d97706;
+}
+
+.bg-green {
+    background: var(--pastel-green);
+    color: #059669;
+}
+
+.value-card h3 {
+    margin-bottom: 12px;
+    font-size: 1.25rem;
+}
+
+.value-card p {
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.value-line {
+    width: 40px;
+    height: 4px;
+    background: #f3f4f6;
+    margin: 0 auto;
+    border-radius: 2px;
+}
+
+/* Services (Pastel Cards) */
+.services {
+    padding: var(--section-pad) 0;
+    background: #ffffff;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+}
+
+.service-card {
+    padding: 48px;
+    border-radius: 32px;
+    position: relative;
+    cursor: pointer;
+    transition: 0.3s;
+    overflow: hidden;
+    background: #ffffff;
+    color: var(--text-primary);
+}
+
+.service-card:hover {
+    transform: scale(1.02);
+}
+
+.bg-pastel-indigo {
+    background: var(--pastel-indigo);
+}
+
+.bg-pastel-yellow {
+    background: var(--pastel-yellow);
+}
+
+.bg-pastel-green {
+    background: var(--pastel-green);
+}
+
+.bg-pastel-gray {
+    background: var(--pastel-gray);
+}
+
+.service-icon {
+    width: 60px;
+    height: 60px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-sm);
+}
+
+.service-card h3 {
+    font-size: 1.75rem;
+    margin-bottom: 8px;
+}
+
+.service-card p {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    max-width: 80%;
+}
+
+.check-circle {
+    position: absolute;
+    bottom: 32px;
+    right: 32px;
+    width: 32px;
+    height: 32px;
+    background: #3b82f6;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+}
+
+.bg-pastel-yellow .check-circle {
+    background: #d97706;
+}
+
+.bg-pastel-green .check-circle {
+    background: #059669;
+}
+
+.bg-pastel-gray .check-circle {
+    background: #374151;
+}
+
+/* Blog Archive Card */
+.blog-card {
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    color: var(--text-primary);
+}
+
+.blog-card:hover {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+}
+
+.blog-card .card-image {
+    width: 100%;
+    aspect-ratio: 16/9;
+    overflow: hidden;
+}
+
+.blog-card .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.blog-card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+.blog-card .card-content {
+    padding: 24px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-card .card-category {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.blog-card .card-title {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+.blog-card .card-title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.blog-card .card-title a:hover {
+    color: var(--primary);
+}
+
+.blog-card .card-excerpt {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.blog-card .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.blog-card .card-meta i {
+    margin-right: 4px;
+}
+
+/* Major (Jurusan) Archive Card */
+.major-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    color: var(--text-primary);
+}
+
+.major-card:hover {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+    border-color: var(--primary-light);
+}
+
+.major-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.major-card .card-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.major-card .card-title {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+}
+
+.major-card .card-title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.major-card .card-title a:hover {
+    color: var(--primary);
+}
+
+.major-card .card-desc {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+    flex-grow: 1;
+}
+
+.major-card .card-prospects {
+    border-top: 1px solid #f3f4f6;
+    padding-top: 16px;
+    margin-bottom: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.major-card .btn {
+    width: 100%;
+    justify-content: center;
+}
+
+/* Campus (University) Archive Card */
+.campus-card {
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: block;
+    text-decoration: none;
+    color: var(--text-primary);
+}
+
+.campus-card:hover {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-4px);
+}
+
+.campus-card .banner {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.campus-card .logo-wrap {
+    width: 70px;
+    height: 70px;
+    background: white;
+    border-radius: 12px;
+    padding: 8px;
+    position: absolute;
+    bottom: -35px;
+    left: 20px;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.campus-card .logo-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.campus-card .content {
+    padding: 50px 20px 20px;
+}
+
+.campus-card h3 {
+    font-size: 1.1rem;
+    margin: 12px 0 8px;
+}
+
+.campus-card .location {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.campus-card .location i {
+    color: var(--primary);
+}
+
+.campus-card .tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* Campus Grid */
+.campus-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+/* Talent / Experts */
+.talent {
+    padding: var(--section-pad) 0;
+    background: var(--bg-light);
+}
+
+.talent-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.talent-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: 0.3s;
+}
+
+.talent-card:hover {
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-8px);
+}
+
+.talent-img {
+    height: 200px;
+    width: 100%;
+    background: #e5e5e5;
+}
+
+.talent-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.talent-info {
+    padding: 20px;
+}
+
+.talent-info h4 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+
+.talent-stat {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    color: #2563eb;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.talent-stat .dot {
+    width: 6px;
+    height: 6px;
+    background: #2563eb;
+    border-radius: 50%;
+}
+
+.talent-loc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}

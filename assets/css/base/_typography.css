@@ -1,0 +1,20 @@
+/**
+ * Typography Base Styles
+ * @package TugasinWP
+ * @since 2.9.0
+ */
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--text-primary);
+    background: var(--bg-body);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: 0.2s;
+}

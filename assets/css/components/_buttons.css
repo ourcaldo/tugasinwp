@@ -1,0 +1,49 @@
+/**
+ * Buttons
+ * All button variants and styles
+ * @package TugasinWP
+ * @since 2.9.0
+ */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    background: #065f46;
+}
+
+.btn-accent {
+    background: var(--accent-btn);
+    color: var(--primary);
+}
+
+.btn-accent:hover {
+    background: #4ade80;
+    transform: scale(1.05);
+}
+
+.btn-outline {
+    border: 2px solid var(--pastel-gray);
+    color: var(--text-primary);
+}
+
+.btn-outline:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}

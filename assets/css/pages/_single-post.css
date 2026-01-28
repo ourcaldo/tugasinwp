@@ -1,0 +1,421 @@
+/**
+ * Single Post Styles
+ * Blog single layout, header, meta, author box, CTA, related posts
+ * @package TugasinWP
+ * @since 2.9.0
+ */
+
+/* Single Post Article Layout */
+.single-post-article {
+    padding-top: 40px;
+    padding-bottom: 80px;
+}
+
+/* Hero Header - Split Layout */
+.single-post-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+    margin-bottom: 48px;
+}
+
+.single-post-header-image {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    aspect-ratio: 16/10;
+    background: var(--bg-light);
+}
+
+.single-post-header-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.single-post-header-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.single-post-container {
+    max-width: 800px;
+}
+
+.single-post-title {
+    font-size: 2.25rem;
+    margin: 0;
+    line-height: 1.3;
+    color: var(--text-primary);
+}
+
+/* Meta Row - Horizontal layout */
+.single-post-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.single-post-meta-row .meta-author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.single-post-meta-row .meta-author img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.single-post-meta-row .meta-author-name {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.single-post-meta-row .meta-divider {
+    width: 1px;
+    height: 16px;
+    background: #e5e7eb;
+}
+
+.single-post-meta-row .meta-date,
+.single-post-meta-row .meta-category {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.single-post-meta-row .meta-category a {
+    color: var(--primary);
+    font-weight: 500;
+}
+
+/* Old meta styles - for fallback */
+.single-post-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 40px;
+}
+
+.single-post-author-avatar {
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+}
+
+.single-post-author-name {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.single-post-date {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.single-featured-image-wrapper {
+    margin-bottom: 40px;
+}
+
+.single-post-divider {
+    border: 0;
+    border-top: 1px solid #e5e7eb;
+    margin: 60px 0 0;
+}
+
+.single-post-nickname {
+    font-size: 0.85rem;
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.single-featured-image {
+    width: 100%;
+    border-radius: 24px;
+    margin-bottom: 40px;
+}
+
+/* Author Box */
+.author-box {
+    background: var(--bg-light);
+    padding: 24px;
+    border-radius: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    margin: 48px 0;
+}
+
+.author-box-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    object-fit: cover;
+}
+
+.author-box-info {
+    flex: 1;
+}
+
+.author-box-name {
+    margin: 0 0 4px;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+    display: block;
+}
+
+.author-box-role {
+    margin: 0 0 12px;
+    color: var(--primary);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.author-box-bio {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.author-box-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    padding: 8px 16px;
+    background: var(--primary);
+    color: white;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.author-box-link:hover {
+    background: #0a684d;
+    transform: translateY(-2px);
+}
+
+/* Single Post CTA Section */
+.single-post-cta {
+    background: linear-gradient(135deg, var(--primary) 0%, #0a684d 100%);
+    color: white;
+    padding: 48px;
+    border-radius: 24px;
+    text-align: center;
+    margin-top: 60px;
+}
+
+.single-post-cta .cta-title {
+    font-size: 1.75rem;
+    margin-bottom: 16px;
+    color: white;
+    display: block;
+}
+
+.single-post-cta p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 24px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Related Posts Grid */
+.related-posts {
+    margin-top: 80px;
+}
+
+.related-posts-title {
+    font-size: 1.5rem;
+    margin-bottom: 32px;
+    display: block;
+}
+
+.related-posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.related-post-card {
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s;
+}
+
+.related-post-card:hover {
+    transform: translateY(-4px);
+}
+
+.related-post-image {
+    height: 150px;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+.related-post-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.related-post-card .related-post-title {
+    font-size: 1rem;
+    line-height: 1.4;
+    margin: 0;
+    display: block;
+}
+
+/* WordPress Entry Content Styles */
+.entry-content h2 {
+    font-size: 1.75rem;
+    margin: 32px 0 16px;
+}
+
+.entry-content h3 {
+    font-size: 1.5rem;
+    margin: 24px 0 12px;
+}
+
+.entry-content p {
+    margin-bottom: 16px;
+}
+
+.entry-content ul,
+.entry-content ol {
+    margin: 16px 0 16px 24px;
+    padding-left: 20px;
+}
+
+.entry-content ul {
+    list-style-type: disc !important;
+    list-style-position: outside;
+}
+
+.entry-content ol {
+    list-style-type: decimal !important;
+    list-style-position: outside;
+}
+
+.entry-content li {
+    margin-bottom: 8px;
+    padding-left: 4px;
+}
+
+.entry-content blockquote {
+    border-left: 4px solid var(--primary);
+    padding-left: 20px;
+    margin: 24px 0;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+.entry-content img {
+    border-radius: 16px;
+    margin: 24px 0;
+}
+
+/* ==========================================================================
+   RESPONSIVE EMBEDS (YouTube, oEmbed, iframes)
+   Prevents horizontal scroll on mobile
+   ========================================================================== */
+
+/* WordPress block embeds */
+.entry-content .wp-block-embed,
+.entry-content .wp-block-video {
+    margin: 24px 0;
+}
+
+.entry-content .wp-block-embed__wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+}
+
+/* Make all iframes responsive */
+.entry-content iframe,
+.uni-description iframe,
+.uni-accordion-content iframe,
+.uni-full-content iframe {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+}
+
+/* WordPress oEmbed wrapper (automatic from the_content) */
+.entry-content .wp-embed-responsive .wp-block-embed__wrapper::before,
+.entry-content .wp-has-aspect-ratio .wp-block-embed__wrapper::before {
+    content: '';
+    display: block;
+    padding-top: 56.25%;
+    /* 16:9 */
+}
+
+.entry-content .wp-embed-responsive .wp-block-embed__wrapper iframe,
+.entry-content .wp-has-aspect-ratio .wp-block-embed__wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Legacy embed wrapper (for apply_filters content) */
+.entry-content .embed-youtube,
+.entry-content .embed-vimeo,
+.entry-content .embed-video {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    /* 16:9 */
+    height: 0;
+    overflow: hidden;
+    margin: 24px 0;
+    border-radius: 12px;
+}
+
+.entry-content .embed-youtube iframe,
+.entry-content .embed-vimeo iframe,
+.entry-content .embed-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Video elements */
+.entry-content video {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    margin: 24px 0;
+}
+
+/* Figure elements (Gutenberg) */
+.entry-content figure.wp-block-embed {
+    margin: 24px 0;
+}
+
+.entry-content figure.wp-block-embed figcaption {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-top: 12px;
+}
