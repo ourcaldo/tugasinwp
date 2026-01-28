@@ -269,6 +269,9 @@ body.menu-open .mobile-toggle {
 /* =========================================
    Tablet Media Query (max-width: 1024px)
    ========================================= */
+/* =========================================
+   Tablet Media Query (max-width: 1024px)
+   ========================================= */
 @media (max-width: 1024px) {
     .container {
         padding: 0 24px;
@@ -283,6 +286,13 @@ body.menu-open .mobile-toggle {
         grid-template-columns: 1fr;
         gap: 40px;
     }
+}
+
+
+/* =========================================
+   Mobile Media Query (max-width: 768px)
+   ========================================= */
+@media (max-width: 768px) {
 
     /* Hide Desktop Nav stuff */
     .service-menu,
@@ -297,39 +307,6 @@ body.menu-open .mobile-toggle {
     .mobile-toggle {
         display: block;
     }
-
-    /* Tablet Menu Styling: Full Height Drawer on Right */
-    .mobile-menu {
-        width: 320px;
-        /* Standard sidebar width */
-        height: 100vh;
-        /* Full height */
-        top: 0;
-        bottom: 0;
-        right: -320px;
-        /* Hidden */
-        border-radius: 0;
-        /* No rounded corners */
-        padding-top: 20px;
-    }
-
-    .mobile-menu-header {
-        margin-top: 0;
-        /* Reset margin */
-        padding-top: 10px;
-    }
-
-    /* Hide CTA inside menu on tablet (it's in the header) */
-    .mobile-cta {
-        display: none;
-    }
-}
-
-
-/* =========================================
-   Mobile Media Query (max-width: 768px)
-   ========================================= */
-@media (max-width: 768px) {
 
     /* Hide header CTA on mobile (show only hamburger) */
     .header-actions .btn {
@@ -392,6 +369,10 @@ body.menu-open .mobile-toggle {
         width: 100%;
         /* Full screen on mobile */
         right: -100%;
+        border-radius: 0;
+        top: 0;
+        bottom: 0;
+        height: 100vh;
     }
 
     /* Cards */
