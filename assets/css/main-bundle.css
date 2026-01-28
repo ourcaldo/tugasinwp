@@ -4427,14 +4427,30 @@ body.menu-open .mobile-toggle {
         display: block;
     }
 
-    /* Hide CTA button on tablet to prevent overlap with hamburger */
-    .header-actions .btn {
-        display: none;
+    /* Tablet Menu Styling: Full Height Drawer on Right */
+    .mobile-menu {
+        width: 320px;
+        /* Standard sidebar width */
+        height: 100vh;
+        /* Full height */
+        top: 0;
+        bottom: 0;
+        right: -320px;
+        /* Hidden */
+        border-radius: 0;
+        /* No rounded corners */
+        padding-top: 20px;
     }
 
-    /* Wider mobile menu for tablet screens */
-    .mobile-menu {
-        width: 380px;
+    .mobile-menu-header {
+        margin-top: 0;
+        /* Reset margin */
+        padding-top: 10px;
+    }
+
+    /* Hide CTA inside menu on tablet (it's in the header) */
+    .mobile-cta {
+        display: none;
     }
 }
 
@@ -4443,6 +4459,16 @@ body.menu-open .mobile-toggle {
    Mobile Media Query (max-width: 768px)
    ========================================= */
 @media (max-width: 768px) {
+
+    /* Hide header CTA on mobile (show only hamburger) */
+    .header-actions .btn {
+        display: none;
+    }
+
+    /* Show CTA inside menu on mobile */
+    .mobile-cta {
+        display: flex;
+    }
 
     /* Layout Grids - Stack them */
     .tugasin-grid-4,

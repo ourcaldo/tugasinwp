@@ -17,3 +17,6 @@ Thumbs.db
 # WordPress
 wp-config.php
 *.log
+
+# Act secrets
+.secrets
