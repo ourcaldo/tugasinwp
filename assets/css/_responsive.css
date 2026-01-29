@@ -28,6 +28,7 @@ body.menu-open .mobile-toggle {
     position: fixed;
     top: 20px;
     right: 20px;
+    /* Keep on right side to match menu */
     z-index: 3000;
     /* Above menu's 2000 */
     color: var(--text-primary);
@@ -38,30 +39,28 @@ body.menu-open .mobile-toggle {
     position: fixed;
     top: 0;
     right: -100%;
-    /* Hidden off-screen */
+    /* Hidden off-screen to the right */
     width: 300px;
-    /* Tablet/Desktop Drawer width */
     height: auto;
-    /* Allow height to fit content */
     max-height: 90vh;
-    /* Don't cover full screen if not needed */
     bottom: auto;
     background: #ffffff;
     z-index: 2000;
-    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Smooth slide transition - visibility delayed on close to keep content visible */
+    transition: right 0.5s ease-out, visibility 0s linear 0.5s;
     overflow-y: auto;
     padding: 80px 20px 40px;
     box-shadow: -5px 10px 25px rgba(0, 0, 0, 0.15);
     display: block !important;
-    /* Override layout CSS */
     visibility: hidden;
-    /* Hide visibility when off-screen to prevent focus */
     border-bottom-left-radius: 20px;
 }
 
 .mobile-menu.active {
     right: 0;
     visibility: visible;
+    /* No delay when opening - show immediately */
+    transition: right 0.5s ease-out, visibility 0s linear 0s;
 }
 
 /* Mobile Menu Header with Logo and Close Button */
@@ -188,28 +187,19 @@ body.menu-open .mobile-toggle {
 }
 
 .accordion-content {
-    display: none;
+    max-height: 0;
+    overflow: hidden;
     background: #f9fafb;
-    padding: 8px;
+    padding: 0 8px;
     border-radius: 12px;
-    margin-bottom: 8px;
+    margin-bottom: 0;
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out, margin-bottom 0.3s ease-out;
 }
 
 .accordion-content.active {
-    display: block;
-    animation: slideDown 0.3s ease-out;
-}
-
-@keyframes slideDown {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    max-height: 500px;
+    padding: 8px;
+    margin-bottom: 8px;
 }
 
 .accordion-item {
@@ -316,6 +306,16 @@ body.menu-open .mobile-toggle {
     /* Show CTA inside menu on mobile */
     .mobile-cta {
         display: flex;
+    }
+
+    /* TOC: Hide desktop sidebar, show mobile bottom bar */
+    .toc-sidebar,
+    .toc-toggle {
+        display: none !important;
+    }
+
+    .toc-mobile {
+        display: block;
     }
 
     /* Layout Grids - Stack them */

@@ -106,51 +106,28 @@
     gap: 16px;
 }
 
-/* Enhanced Services Menu with Left Panel */
+/* Enhanced Services Menu - now a simple grid without left panel */
 .service-menu-enhanced {
-    display: flex;
-    width: 720px;
-    gap: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 600px;
+    gap: 8px;
 }
 
-.dropdown-panel-left {
+/* View All Link - for "Semua Layanan" styled item in dropdown */
+.dropdown-item.view-all-link {
     background: var(--primary);
-    padding: 20px;
-    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
-    min-width: 220px;
-    display: flex;
-    align-items: center;
-    color: white;
-}
-
-.dropdown-panel-left h5,
-.dropdown-panel-left strong {
-    color: white;
-    font-size: 0.95rem;
-    font-weight: 700;
-    margin: 0 0 2px 0;
-    display: block;
-}
-
-.dropdown-panel-left p {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 0.8rem;
-    margin: 0;
-}
-
-.view-all-link {
-    display: flex;
-    align-items: center;
-    gap: 12px;
     padding: 16px;
     border-radius: 12px;
-    transition: background 0.2s;
+    transition: all 0.2s;
     text-decoration: none;
-    width: 100%;
+    grid-column: 1 / -1;
+    /* Span full width */
 }
 
-.view-all-link:hover {
-    background: rgba(255, 255, 255, 0.15);
+.dropdown-item.view-all-link:hover {
+    background: #0d7a51;
+    transform: translateY(-2px);
 }
 
 .view-all-icon {
@@ -163,9 +140,10 @@
     align-items: center;
     justify-content: center;
     font-size: 1.2rem;
+    flex-shrink: 0;
 }
 
-.view-all-link .menu-item-title {
+.dropdown-item.view-all-link .menu-item-title {
     font-size: 0.95rem;
     font-weight: 700;
     color: white;
@@ -173,13 +151,13 @@
     display: block;
 }
 
-.view-all-link p {
+.dropdown-item.view-all-link p {
     font-size: 0.8rem;
     color: rgba(255, 255, 255, 0.8);
     margin: 0;
 }
 
-.view-all-link>i {
+.dropdown-item.view-all-link>i {
     color: white;
     margin-left: auto;
 }
