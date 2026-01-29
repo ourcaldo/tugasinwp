@@ -138,6 +138,12 @@
     background: #f9fafb;
 }
 
+.toc-number {
+    color: var(--primary);
+    font-weight: 700;
+    margin-right: 6px;
+}
+
 .toc-link.active {
     color: var(--primary);
     border-left-color: var(--primary);

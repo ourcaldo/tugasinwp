@@ -1449,6 +1449,12 @@ textarea:focus {
     background: #f9fafb;
 }
 
+.toc-number {
+    color: var(--primary);
+    font-weight: 700;
+    margin-right: 6px;
+}
+
 .toc-link.active {
     color: var(--primary);
     border-left-color: var(--primary);
@@ -4423,6 +4429,30 @@ body.menu-open .mobile-toggle {
 
     .toc-mobile {
         display: block;
+    }
+
+    /* Single Post Header - Stack vertically on mobile */
+    .single-post-header {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .single-post-title {
+        font-size: 1.5rem;
+    }
+
+    .single-post-cta {
+        padding: 32px 20px;
+    }
+
+    .related-posts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .author-box {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
     }
 
     /* Layout Grids - Stack them */
