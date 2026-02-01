@@ -27,82 +27,108 @@ class Tugasin_Ajax {
      * Handle archive filter AJAX request
      */
     public function filter_archive() {
-        // Verify nonce
-        if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'tugasin_ajax_nonce' ) ) {
-            wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
-        }
-
-        // Security: Whitelist allowed post types to prevent arbitrary queries
-        $allowed_post_types = array( 'post', 'major', 'university' );
-        $post_type = isset( $_POST['post_type'] ) ? sanitize_text_field( $_POST['post_type'] ) : 'post';
-        
-        if ( ! in_array( $post_type, $allowed_post_types, true ) ) {
-            wp_send_json_error( array( 'message' => 'Invalid post type' ) );
-        }
-
-        $taxonomy = isset( $_POST['taxonomy'] ) ? sanitize_text_field( $_POST['taxonomy'] ) : 'category';
-        $term_id = isset( $_POST['term_id'] ) ? absint( $_POST['term_id'] ) : 0;
-        $paged = isset( $_POST['paged'] ) ? absint( $_POST['paged'] ) : 1;
-
-        // Build query args
-        $args = array(
-            'post_type'      => $post_type,
-            'posts_per_page' => get_option( 'posts_per_page', 9 ),
-            'paged'          => $paged,
-            'post_status'    => 'publish',
-        );
-
-        // Add taxonomy query if term is selected
-        if ( $term_id > 0 ) {
-            $args['tax_query'] = array(
-                array(
-                    'taxonomy' => $taxonomy,
-                    'field'    => 'term_id',
-                    'terms'    => $term_id,
-                ),
-            );
-        }
-
-        $query = new WP_Query( $args );
-
-        ob_start();
-
-        if ( $query->have_posts() ) {
-            while ( $query->have_posts() ) {
-                $query->the_post();
-                
-                // Render appropriate card based on post type
-                switch ( $post_type ) {
-                    case 'major':
-                        get_template_part( 'template-parts/card/major' );
-                        break;
-                    case 'university':
-                        get_template_part( 'template-parts/card/university' );
-                        break;
-                    default:
-                        // Blog post card
-                        $this->render_blog_card();
-                        break;
-                }
+        try {
+            // Verify nonce
+            if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'tugasin_ajax_nonce' ) ) {
+                wp_send_json_error( array( 'message' => 'Invalid nonce' ) );
             }
-        } else {
-            $this->render_no_posts( $post_type );
+
+            // Rate limiting - 30 requests per minute per IP
+            $ip = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( $_SERVER['REMOTE_ADDR'] ) : 'unknown';
+            $rate_key = 'tugasin_ajax_rate_' . md5( $ip );
+            $rate_count = (int) get_transient( $rate_key );
+            
+            if ( $rate_count >= 30 ) {
+                wp_send_json_error( array( 'message' => 'Rate limit exceeded. Please try again later.' ) );
+            }
+            
+            set_transient( $rate_key, $rate_count + 1, 60 );
+
+            // Security: Whitelist allowed post types to prevent arbitrary queries
+            $allowed_post_types = array( 'post', 'major', 'university' );
+            $post_type = isset( $_POST['post_type'] ) ? sanitize_text_field( $_POST['post_type'] ) : 'post';
+            
+            if ( ! in_array( $post_type, $allowed_post_types, true ) ) {
+                wp_send_json_error( array( 'message' => 'Invalid post type' ) );
+            }
+
+            // Security: Whitelist allowed taxonomies
+            $allowed_taxonomies = array( 'category', 'post_tag', 'major_category', 'university_type', 'accreditation' );
+            $taxonomy = isset( $_POST['taxonomy'] ) ? sanitize_text_field( $_POST['taxonomy'] ) : 'category';
+            
+            if ( ! in_array( $taxonomy, $allowed_taxonomies, true ) ) {
+                wp_send_json_error( array( 'message' => 'Invalid taxonomy' ) );
+            }
+
+            $term_id = isset( $_POST['term_id'] ) ? absint( $_POST['term_id'] ) : 0;
+            $paged = isset( $_POST['paged'] ) ? absint( $_POST['paged'] ) : 1;
+            
+            // Limit paged to reasonable value
+            $paged = min( $paged, 100 );
+
+            // Build query args
+            $args = array(
+                'post_type'      => $post_type,
+                'posts_per_page' => get_option( 'posts_per_page', 9 ),
+                'paged'          => $paged,
+                'post_status'    => 'publish',
+            );
+
+            // Add taxonomy query if term is selected
+            if ( $term_id > 0 ) {
+                $args['tax_query'] = array(
+                    array(
+                        'taxonomy' => $taxonomy,
+                        'field'    => 'term_id',
+                        'terms'    => $term_id,
+                    ),
+                );
+            }
+
+            $query = new WP_Query( $args );
+
+            ob_start();
+
+            if ( $query->have_posts() ) {
+                while ( $query->have_posts() ) {
+                    $query->the_post();
+                    
+                    // Render appropriate card based on post type
+                    switch ( $post_type ) {
+                        case 'major':
+                            get_template_part( 'template-parts/card/major' );
+                            break;
+                        case 'university':
+                            get_template_part( 'template-parts/card/university' );
+                            break;
+                        default:
+                            // Blog post card
+                            $this->render_blog_card();
+                            break;
+                    }
+                }
+            } else {
+                $this->render_no_posts( $post_type );
+            }
+
+            $html = ob_get_clean();
+
+            // Generate pagination
+            ob_start();
+            $this->render_pagination( $query, $paged );
+            $pagination = ob_get_clean();
+
+            wp_reset_postdata();
+
+            wp_send_json_success( array(
+                'html'       => $html,
+                'pagination' => $pagination,
+                'found'      => $query->found_posts,
+            ) );
+
+        } catch ( Exception $e ) {
+            wp_send_json_error( array( 'message' => 'An error occurred while processing your request.' ) );
         }
-
-        $html = ob_get_clean();
-
-        // Generate pagination
-        ob_start();
-        $this->render_pagination( $query, $paged );
-        $pagination = ob_get_clean();
-
-        wp_reset_postdata();
-
-        wp_send_json_success( array(
-            'html'       => $html,
-            'pagination' => $pagination,
-            'found'      => $query->found_posts,
-        ) );
     }
 
     /**
@@ -118,7 +144,8 @@ class Tugasin_Ajax {
         
         $thumb_url = get_the_post_thumbnail_url( null, 'large' );
         if ( ! $thumb_url ) {
-            $thumb_url = 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=1000&auto=format&fit=crop';
+            // Use local placeholder image instead of external URL
+            $thumb_url = get_template_directory_uri() . '/assets/images/placeholder-blog.jpg';
         }
         ?>
         <div class="blog-card">

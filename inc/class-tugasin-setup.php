@@ -248,6 +248,16 @@ class Tugasin_Setup
             $classes[] = 'no-sidebar';
         }
 
+        // Add has-toc class for single posts with table of contents
+        if (is_singular('post') && function_exists('tugasin_generate_toc')) {
+            $content = get_the_content();
+            $content = apply_filters('the_content', $content);
+            $toc_data = tugasin_generate_toc($content);
+            if (!empty($toc_data['toc']) && $toc_data['count'] >= 3) {
+                $classes[] = 'has-toc';
+            }
+        }
+
         return $classes;
     }
 
