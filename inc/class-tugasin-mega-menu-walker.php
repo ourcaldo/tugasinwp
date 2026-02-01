@@ -23,6 +23,7 @@ class Tugasin_Mega_Menu_Walker extends Walker_Nav_Menu
     private $in_dropdown = false;
     private $dropdown_type = '';
     private $current_parent_id = 0;
+    private $service_items_started = false;
 
     /**
      * Starts the list before the elements are added.
@@ -40,6 +41,7 @@ class Tugasin_Mega_Menu_Walker extends Walker_Nav_Menu
             $output .= '<div class="' . $dropdown_class . '">';
 
             $this->in_dropdown = true;
+            $this->service_items_started = false;
         }
     }
 
@@ -49,9 +51,14 @@ class Tugasin_Mega_Menu_Walker extends Walker_Nav_Menu
     public function end_lvl(&$output, $depth = 0, $args = null)
     {
         if ($depth === 0) {
+            // Close right panel if it was opened (for service menus)
+            if ($this->dropdown_type === 'service' && $this->service_items_started) {
+                $output .= '</div>'; // Close dropdown-panel-right
+            }
             $output .= '</div>'; // Close dropdown-menu
             $this->in_dropdown = false;
             $this->dropdown_type = '';
+            $this->service_items_started = false;
         }
     }
 
@@ -118,6 +125,12 @@ class Tugasin_Mega_Menu_Walker extends Walker_Nav_Menu
                 $output .= '<i class="fas fa-arrow-right"></i>';
                 $output .= '</a>';
             } else {
+                // For service menus, open the right panel div before the first service item
+                if ($this->dropdown_type === 'service' && !$this->service_items_started) {
+                    $output .= '<div class="dropdown-panel-right">';
+                    $this->service_items_started = true;
+                }
+
                 // Regular dropdown item
                 $output .= '<a href="' . esc_url($item->url) . '" class="dropdown-item">';
 

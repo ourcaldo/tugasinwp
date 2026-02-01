@@ -1973,28 +1973,31 @@ textarea:focus {
     gap: 16px;
 }
 
-/* Enhanced Services Menu - now a simple grid without left panel */
+/* Enhanced Services Menu - 2 panel layout: left (Semua Layanan) + right (services grid) */
 .service-menu-enhanced {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 600px;
-    gap: 8px;
+    grid-template-columns: 220px 1fr;
+    width: 700px;
+    gap: 0;
 }
 
-/* View All Link - for "Semua Layanan" styled item in dropdown */
+/* Left panel - Semua Layanan */
 .dropdown-item.view-all-link {
     background: var(--primary);
-    padding: 16px;
-    border-radius: 12px;
+    padding: 20px;
+    border-radius: 12px 0 0 12px;
     transition: all 0.2s;
     text-decoration: none;
-    grid-column: 1 / -1;
-    /* Span full width */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .dropdown-item.view-all-link:hover {
     background: #0d7a51;
-    transform: translateY(-2px);
 }
 
 .view-all-icon {
@@ -2008,13 +2011,14 @@ textarea:focus {
     justify-content: center;
     font-size: 1.2rem;
     flex-shrink: 0;
+    margin-bottom: 12px;
 }
 
 .dropdown-item.view-all-link .menu-item-title {
-    font-size: 0.95rem;
+    font-size: 1rem;
     font-weight: 700;
     color: white;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
     display: block;
 }
 
@@ -2024,9 +2028,14 @@ textarea:focus {
     margin: 0;
 }
 
-.dropdown-item.view-all-link>i {
+.dropdown-item.view-all-link>i.fa-arrow-right {
     color: white;
-    margin-left: auto;
+    margin-top: 12px;
+}
+
+/* Right panel - Service items grid */
+.service-menu-enhanced .dropdown-item:not(.view-all-link) {
+    background: white;
 }
 
 .dropdown-panel-right {
