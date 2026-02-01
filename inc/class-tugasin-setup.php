@@ -9,58 +9,62 @@
  */
 
 // Prevent direct access
-if ( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
     exit;
 }
 
-class Tugasin_Setup {
+class Tugasin_Setup
+{
 
     /**
      * Constructor
      */
-    public function __construct() {
+    public function __construct()
+    {
         // Call theme setup methods DIRECTLY since this class is instantiated
         // from within after_setup_theme hook (via tugasin_init)
         // Adding more after_setup_theme hooks here would be too late
         $this->theme_support();
         $this->register_menus();
-        
+
         // Other hooks fire on different actions, so they work normally
-        add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_assets' ) );
-        add_action( 'wp_enqueue_scripts', array( $this, 'dequeue_conflicting_styles' ), 999 );
-        add_action( 'widgets_init', array( $this, 'register_sidebars' ) );
-        add_filter( 'body_class', array( $this, 'body_classes' ) );
+        add_action('wp_enqueue_scripts', array($this, 'enqueue_assets'));
+        add_action('wp_enqueue_scripts', array($this, 'dequeue_conflicting_styles'), 999);
+        add_action('widgets_init', array($this, 'register_sidebars'));
+        add_filter('body_class', array($this, 'body_classes'));
         // Note: Title handling moved to inc/seo-functions.php via pre_get_document_title filter
-        
+
         // Performance optimizations (Phase 27)
-        add_action( 'wp_head', array( $this, 'inline_critical_css' ), 1 );
-        add_filter( 'script_loader_tag', array( $this, 'add_defer_attribute' ), 10, 2 );
-        add_filter( 'upload_mimes', array( $this, 'allow_webp_uploads' ) );
+        add_action('wp_head', array($this, 'inline_critical_css'), 1);
+        add_action('wp_head', array($this, 'output_favicon'), 2);
+        add_filter('script_loader_tag', array($this, 'add_defer_attribute'), 10, 2);
+        add_filter('upload_mimes', array($this, 'allow_webp_uploads'));
     }
 
     /**
      * Register theme support
      */
-    public function theme_support() {
+    public function theme_support()
+    {
         // Make theme available for translation
-        load_theme_textdomain( 'tugasin', TUGASIN_DIR . '/languages' );
+        load_theme_textdomain('tugasin', TUGASIN_DIR . '/languages');
 
         // Add default posts and comments RSS feed links to head
-        add_theme_support( 'automatic-feed-links' );
+        add_theme_support('automatic-feed-links');
 
         // Let WordPress manage the document title
-        add_theme_support( 'title-tag' );
+        add_theme_support('title-tag');
 
         // Enable support for Post Thumbnails
-        add_theme_support( 'post-thumbnails' );
-        set_post_thumbnail_size( 1200, 630, true );
+        add_theme_support('post-thumbnails');
+        set_post_thumbnail_size(1200, 630, true);
 
         // Add custom image sizes
-        add_image_size( 'tugasin-card', 400, 250, true );
-        add_image_size( 'tugasin-hero', 1920, 800, true );
+        add_image_size('tugasin-card', 400, 250, true);
+        add_image_size('tugasin-hero', 1920, 800, true);
 
         // Switch default core markup to output valid HTML5
-        add_theme_support( 'html5', array(
+        add_theme_support('html5', array(
             'search-form',
             'comment-form',
             'comment-list',
@@ -68,97 +72,100 @@ class Tugasin_Setup {
             'caption',
             'style',
             'script',
-        ) );
+        ));
 
         // Add support for custom logo
-        add_theme_support( 'custom-logo', array(
-            'height'      => 80,
-            'width'       => 200,
+        add_theme_support('custom-logo', array(
+            'height' => 80,
+            'width' => 200,
             'flex-height' => true,
-            'flex-width'  => true,
-        ) );
+            'flex-width' => true,
+        ));
 
         // Add support for custom background
-        add_theme_support( 'custom-background', array(
+        add_theme_support('custom-background', array(
             'default-color' => 'ffffff',
-        ) );
+        ));
 
         // Add support for responsive embeds
-        add_theme_support( 'responsive-embeds' );
+        add_theme_support('responsive-embeds');
 
         // Add support for full and wide align images
-        add_theme_support( 'align-wide' );
+        add_theme_support('align-wide');
 
         // Add support for editor styles
-        add_theme_support( 'editor-styles' );
+        add_theme_support('editor-styles');
 
         // Add support for block styles
-        add_theme_support( 'wp-block-styles' );
+        add_theme_support('wp-block-styles');
 
         // Declare WooCommerce support (future-proofing)
-        add_theme_support( 'woocommerce' );
+        add_theme_support('woocommerce');
     }
 
     /**
      * Register navigation menus
      */
-    public function register_menus() {
-        register_nav_menus( array(
-            'primary'   => esc_html__( 'Primary Menu', 'tugasin' ),
-            'mobile'    => esc_html__( 'Mobile Menu', 'tugasin' ),
-            'footer'    => esc_html__( 'Footer Menu', 'tugasin' ),
-        ) );
+    public function register_menus()
+    {
+        register_nav_menus(array(
+            'primary' => esc_html__('Primary Menu', 'tugasin'),
+            'mobile' => esc_html__('Mobile Menu', 'tugasin'),
+            'footer' => esc_html__('Footer Menu', 'tugasin'),
+        ));
     }
 
     /**
      * Register widget areas
      */
-    public function register_sidebars() {
-        register_sidebar( array(
-            'name'          => esc_html__( 'Blog Sidebar', 'tugasin' ),
-            'id'            => 'sidebar-blog',
-            'description'   => esc_html__( 'Add widgets here for blog sidebar.', 'tugasin' ),
+    public function register_sidebars()
+    {
+        register_sidebar(array(
+            'name' => esc_html__('Blog Sidebar', 'tugasin'),
+            'id' => 'sidebar-blog',
+            'description' => esc_html__('Add widgets here for blog sidebar.', 'tugasin'),
             'before_widget' => '<section id="%1$s" class="widget %2$s">',
-            'after_widget'  => '</section>',
-            'before_title'  => '<h3 class="widget-title">',
-            'after_title'   => '</h3>',
-        ) );
+            'after_widget' => '</section>',
+            'before_title' => '<h3 class="widget-title">',
+            'after_title' => '</h3>',
+        ));
 
-        register_sidebar( array(
-            'name'          => esc_html__( 'Footer Column 1', 'tugasin' ),
-            'id'            => 'footer-1',
-            'description'   => esc_html__( 'Footer widget area 1.', 'tugasin' ),
+        register_sidebar(array(
+            'name' => esc_html__('Footer Column 1', 'tugasin'),
+            'id' => 'footer-1',
+            'description' => esc_html__('Footer widget area 1.', 'tugasin'),
             'before_widget' => '<div id="%1$s" class="footer-widget %2$s">',
-            'after_widget'  => '</div>',
-            'before_title'  => '<strong class="footer-widget-title">',
-            'after_title'   => '</strong>',
-        ) );
+            'after_widget' => '</div>',
+            'before_title' => '<strong class="footer-widget-title">',
+            'after_title' => '</strong>',
+        ));
 
-        register_sidebar( array(
-            'name'          => esc_html__( 'Footer Column 2', 'tugasin' ),
-            'id'            => 'footer-2',
-            'description'   => esc_html__( 'Footer widget area 2.', 'tugasin' ),
+        register_sidebar(array(
+            'name' => esc_html__('Footer Column 2', 'tugasin'),
+            'id' => 'footer-2',
+            'description' => esc_html__('Footer widget area 2.', 'tugasin'),
             'before_widget' => '<div id="%1$s" class="footer-widget %2$s">',
-            'after_widget'  => '</div>',
-            'before_title'  => '<strong class="footer-widget-title">',
-            'after_title'   => '</strong>',
-        ) );
+            'after_widget' => '</div>',
+            'before_title' => '<strong class="footer-widget-title">',
+            'after_title' => '</strong>',
+        ));
 
-        register_sidebar( array(
-            'name'          => esc_html__( 'Footer Column 3', 'tugasin' ),
-            'id'            => 'footer-3',
-            'description'   => esc_html__( 'Footer widget area 3.', 'tugasin' ),
+        register_sidebar(array(
+            'name' => esc_html__('Footer Column 3', 'tugasin'),
+            'id' => 'footer-3',
+            'description' => esc_html__('Footer widget area 3.', 'tugasin'),
             'before_widget' => '<div id="%1$s" class="footer-widget %2$s">',
-            'after_widget'  => '</div>',
-            'before_title'  => '<strong class="footer-widget-title">',
-            'after_title'   => '</strong>',
-        ) );
+            'after_widget' => '</div>',
+            'before_title' => '<strong class="footer-widget-title">',
+            'after_title' => '</strong>',
+        ));
     }
 
     /**
      * Enqueue scripts and styles
      */
-    public function enqueue_assets() {
+    public function enqueue_assets()
+    {
         // Local Fonts (Plus Jakarta Sans) - v2.8.0: Self-hosted for performance & GDPR
         wp_enqueue_style(
             'tugasin-fonts',
@@ -180,7 +187,7 @@ class Tugasin_Setup {
         wp_enqueue_style(
             'tugasin-main-bundle',
             TUGASIN_URI . '/assets/css/main-bundle.css',
-            array( 'tugasin-fonts', 'tugasin-font-awesome' ),
+            array('tugasin-fonts', 'tugasin-font-awesome'),
             TUGASIN_VERSION
         );
 
@@ -194,14 +201,14 @@ class Tugasin_Setup {
         );
 
         // Localize script with data
-        wp_localize_script( 'tugasin-main', 'tugasinData', array(
-            'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
-            'nonce'       => wp_create_nonce( 'tugasin_nonce' ),
+        wp_localize_script('tugasin-main', 'tugasinData', array(
+            'ajaxUrl' => admin_url('admin-ajax.php'),
+            'nonce' => wp_create_nonce('tugasin_nonce'),
             'whatsappUrl' => tugasin_get_whatsapp_url(),
-        ) );
+        ));
 
         // Archive filter script (only on archive pages)
-        if ( is_home() || is_archive() || is_tax() ) {
+        if (is_home() || is_archive() || is_tax()) {
             wp_enqueue_script(
                 'tugasin-archive-filter',
                 TUGASIN_URI . '/assets/js/archive-filter.js',
@@ -210,16 +217,16 @@ class Tugasin_Setup {
                 true
             );
 
-            wp_localize_script( 'tugasin-archive-filter', 'tugasinAjax', array(
-                'ajax_url'    => admin_url( 'admin-ajax.php' ),
-                'nonce'       => wp_create_nonce( 'tugasin_ajax_nonce' ),
+            wp_localize_script('tugasin-archive-filter', 'tugasinAjax', array(
+                'ajax_url' => admin_url('admin-ajax.php'),
+                'nonce' => wp_create_nonce('tugasin_ajax_nonce'),
                 // i18n strings for JavaScript
-                'i18n'        => array(
-                    'noResults' => esc_html__( 'Tidak ada hasil ditemukan.', 'tugasin' ),
-                    'loadError' => esc_html__( 'Terjadi kesalahan saat memuat data.', 'tugasin' ),
-                    'loading'   => esc_html__( 'Memuat...', 'tugasin' ),
+                'i18n' => array(
+                    'noResults' => esc_html__('Tidak ada hasil ditemukan.', 'tugasin'),
+                    'loadError' => esc_html__('Terjadi kesalahan saat memuat data.', 'tugasin'),
+                    'loading' => esc_html__('Memuat...', 'tugasin'),
                 ),
-            ) );
+            ));
         }
     }
 
@@ -229,14 +236,15 @@ class Tugasin_Setup {
      * @param array $classes Body classes.
      * @return array
      */
-    public function body_classes( $classes ) {
+    public function body_classes($classes)
+    {
         // Add hfeed class to non-singular pages
-        if ( ! is_singular() ) {
+        if (!is_singular()) {
             $classes[] = 'hfeed';
         }
 
         // Add no-sidebar class when there's no sidebar
-        if ( ! is_active_sidebar( 'sidebar-blog' ) ) {
+        if (!is_active_sidebar('sidebar-blog')) {
             $classes[] = 'no-sidebar';
         }
 
@@ -246,14 +254,15 @@ class Tugasin_Setup {
     /**
      * Dequeue conflicting styles from plugins (e.g., Elementor's Font Awesome 4.7)
      */
-    public function dequeue_conflicting_styles() {
+    public function dequeue_conflicting_styles()
+    {
         // Dequeue Elementor's Font Awesome 4.7 to prevent conflict with our FA 6.4
-        wp_dequeue_style( 'font-awesome' );
-        wp_deregister_style( 'font-awesome' );
-        wp_dequeue_style( 'elementor-icons-fa-solid' );
-        wp_dequeue_style( 'elementor-icons-fa-regular' );
-        wp_dequeue_style( 'elementor-icons-fa-brands' );
-        
+        wp_dequeue_style('font-awesome');
+        wp_deregister_style('font-awesome');
+        wp_dequeue_style('elementor-icons-fa-solid');
+        wp_dequeue_style('elementor-icons-fa-regular');
+        wp_dequeue_style('elementor-icons-fa-brands');
+
         // Re-register Font Awesome 6.4 with our handle
         wp_enqueue_style(
             'tugasin-font-awesome',
@@ -269,19 +278,20 @@ class Tugasin_Setup {
      * @param array $title_parts Title parts.
      * @return array
      */
-    public function filter_document_title( $title_parts ) {
+    public function filter_document_title($title_parts)
+    {
         // For singular pages/posts, ensure we use the actual post title
-        if ( is_singular() ) {
+        if (is_singular()) {
             $title_parts['title'] = get_the_title();
         }
-        
+
         // For archives, use the archive title
-        if ( is_post_type_archive( 'major' ) ) {
-            $title_parts['title'] = __( 'Kamus Jurusan', 'tugasin' );
+        if (is_post_type_archive('major')) {
+            $title_parts['title'] = __('Kamus Jurusan', 'tugasin');
         }
-        
-        if ( is_post_type_archive( 'university' ) ) {
-            $title_parts['title'] = __( 'Perguruan Tinggi', 'tugasin' );
+
+        if (is_post_type_archive('university')) {
+            $title_parts['title'] = __('Perguruan Tinggi', 'tugasin');
         }
 
         return $title_parts;
@@ -291,15 +301,57 @@ class Tugasin_Setup {
      * Inline critical CSS in the head for above-the-fold content
      * Phase 27: Performance optimization
      */
-    public function inline_critical_css() {
+    public function inline_critical_css()
+    {
         $critical_css_path = TUGASIN_DIR . '/assets/css/critical.css';
-        
-        if ( file_exists( $critical_css_path ) ) {
-            $critical_css = file_get_contents( $critical_css_path );
-            if ( $critical_css ) {
+
+        if (file_exists($critical_css_path)) {
+            $critical_css = file_get_contents($critical_css_path);
+            if ($critical_css) {
                 echo '<style id="tugasin-critical-css">' . $critical_css . '</style>' . "\n";
             }
         }
+    }
+
+    /**
+     * Output favicon link tags from theme settings
+     * Uses the tugasin_site_icon option set in Branding settings
+     */
+    public function output_favicon()
+    {
+        $icon_id = get_option('tugasin_site_icon', 0);
+
+        if (empty($icon_id)) {
+            return;
+        }
+
+        // Get the icon URL in various sizes
+        $icon_url_512 = wp_get_attachment_image_url($icon_id, array(512, 512));
+        $icon_url_192 = wp_get_attachment_image_url($icon_id, array(192, 192));
+        $icon_url_180 = wp_get_attachment_image_url($icon_id, array(180, 180));
+        $icon_url_32 = wp_get_attachment_image_url($icon_id, array(32, 32));
+        $icon_url_16 = wp_get_attachment_image_url($icon_id, array(16, 16));
+
+        // Fallback to full size if specific sizes don't exist
+        $icon_url_full = wp_get_attachment_url($icon_id);
+
+        if (!$icon_url_full) {
+            return;
+        }
+
+        // Use full URL as fallback
+        $icon_32 = $icon_url_32 ?: $icon_url_full;
+        $icon_16 = $icon_url_16 ?: $icon_url_full;
+        $icon_180 = $icon_url_180 ?: $icon_url_full;
+        $icon_192 = $icon_url_192 ?: $icon_url_full;
+        $icon_512 = $icon_url_512 ?: $icon_url_full;
+
+        // Output favicon link tags
+        echo '<link rel="icon" href="' . esc_url($icon_16) . '" sizes="16x16" type="image/png">' . "\n";
+        echo '<link rel="icon" href="' . esc_url($icon_32) . '" sizes="32x32" type="image/png">' . "\n";
+        echo '<link rel="apple-touch-icon" href="' . esc_url($icon_180) . '" sizes="180x180">' . "\n";
+        echo '<link rel="icon" href="' . esc_url($icon_192) . '" sizes="192x192" type="image/png">' . "\n";
+        echo '<link rel="icon" href="' . esc_url($icon_512) . '" sizes="512x512" type="image/png">' . "\n";
     }
 
     /**
@@ -310,18 +362,19 @@ class Tugasin_Setup {
      * @param string $handle The script handle.
      * @return string Modified script tag.
      */
-    public function add_defer_attribute( $tag, $handle ) {
+    public function add_defer_attribute($tag, $handle)
+    {
         // Get the script src from the tag
         $src = '';
-        if ( preg_match( '/src=["\']([^"\']+)["\']/', $tag, $matches ) ) {
+        if (preg_match('/src=["\']([^"\']+)["\']/', $tag, $matches)) {
             $src = $matches[1];
         }
 
         // Check if this script should be deferred using Tugasin_Optimization helper
-        if ( class_exists( 'Tugasin_Optimization' ) && Tugasin_Optimization::should_defer_script( $handle, $src ) ) {
+        if (class_exists('Tugasin_Optimization') && Tugasin_Optimization::should_defer_script($handle, $src)) {
             // Add defer if not already present
-            if ( strpos( $tag, 'defer' ) === false ) {
-                $tag = str_replace( ' src', ' defer src', $tag );
+            if (strpos($tag, 'defer') === false) {
+                $tag = str_replace(' src', ' defer src', $tag);
             }
         }
 
@@ -335,9 +388,10 @@ class Tugasin_Setup {
      * @param array $mimes Allowed mime types.
      * @return array Modified mime types.
      */
-    public function allow_webp_uploads( $mimes ) {
+    public function allow_webp_uploads($mimes)
+    {
         // Check if WebP support is enabled in settings
-        if ( class_exists( 'Tugasin_Optimization' ) && Tugasin_Optimization::is_webp_enabled() ) {
+        if (class_exists('Tugasin_Optimization') && Tugasin_Optimization::is_webp_enabled()) {
             $mimes['webp'] = 'image/webp';
         }
         return $mimes;
