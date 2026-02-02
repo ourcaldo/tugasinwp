@@ -65,6 +65,104 @@
 #archive-grid.loading {
     opacity: 0.6;
     pointer-events: none;
+    position: relative;
+}
+
+/* Skeleton grid for AJAX loading */
+.archive-skeleton-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+}
+
+.skeleton-blog-card {
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.skeleton-blog-card .skeleton-image {
+    height: 200px;
+    background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+}
+
+.skeleton-blog-card .skeleton-content {
+    padding: 24px;
+}
+
+.skeleton-blog-card .skeleton-line {
+    height: 14px;
+    background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+    border-radius: 4px;
+    margin-bottom: 12px;
+}
+
+.skeleton-blog-card .skeleton-line.title {
+    height: 20px;
+    width: 85%;
+    margin-bottom: 16px;
+}
+
+.skeleton-blog-card .skeleton-line.excerpt {
+    width: 100%;
+}
+
+.skeleton-blog-card .skeleton-line.meta {
+    width: 50%;
+    height: 12px;
+    margin-top: 8px;
+}
+
+/* No posts found message */
+.no-posts-message {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.no-posts-icon {
+    width: 80px;
+    height: 80px;
+    background: var(--pastel-indigo);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+}
+
+.no-posts-icon i {
+    font-size: 2rem;
+    color: #4f46e5;
+}
+
+.no-posts-message h3 {
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+
+/* AJAX pagination styles */
+.ajax-pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    gap: 8px;
+}
+
+.ajax-pagination .pagination-link {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    justify-content: center;
+}
+
+.ajax-pagination .pagination-link:not(.btn-primary) {
+    border-color: #e5e7eb;
 }
 
 /* Floating animation for hero cards */

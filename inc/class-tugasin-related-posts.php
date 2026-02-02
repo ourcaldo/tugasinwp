@@ -57,10 +57,28 @@ class Tugasin_Related_Posts
      */
     public function get_related_posts($post_id, $count = 3, $exclude = array())
     {
-        // Check cache first
+        // Check in-memory cache first
         $cache_key = $post_id . '_' . $count . '_' . implode('_', $exclude);
         if (isset($this->related_posts_cache[$cache_key])) {
             return $this->related_posts_cache[$cache_key];
+        }
+
+        // Check transient cache (persisted across page loads - 1 hour TTL)
+        $transient_key = 'tugasin_related_' . md5($cache_key);
+        $cached_post_ids = get_transient($transient_key);
+
+        if ($cached_post_ids !== false && is_array($cached_post_ids)) {
+            // Build query from cached post IDs
+            $args = array(
+                'post__in' => $cached_post_ids,
+                'posts_per_page' => count($cached_post_ids),
+                'post_type' => 'post',
+                'post_status' => 'publish',
+                'orderby' => 'post__in',
+            );
+            $query = new WP_Query($args);
+            $this->related_posts_cache[$cache_key] = $query;
+            return $query;
         }
 
         // Get categories of current post
@@ -121,7 +139,22 @@ class Tugasin_Related_Posts
             }
         }
 
-        // Cache the result
+        // Cache post IDs in transient for 1 hour
+        $post_ids_to_cache = array();
+        if ($query->have_posts()) {
+            while ($query->have_posts()) {
+                $query->the_post();
+                $post_ids_to_cache[] = get_the_ID();
+            }
+            wp_reset_postdata();
+            $query->rewind_posts();
+        }
+
+        if (!empty($post_ids_to_cache)) {
+            set_transient($transient_key, $post_ids_to_cache, HOUR_IN_SECONDS);
+        }
+
+        // Cache in memory
         $this->related_posts_cache[$cache_key] = $query;
 
         return $query;
