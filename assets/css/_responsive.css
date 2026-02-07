@@ -371,9 +371,7 @@ body.menu-open .mobile-toggle {
     }
 
     .hero-visual {
-        order: 0;
-        height: 280px;
-        margin-bottom: 20px;
+        display: none;
     }
 
     .hero-grid {
