@@ -20,3 +20,6 @@ wp-config.php
 
 # Act secrets
 .secrets
+
+# Build Artifacts
+*.zip
