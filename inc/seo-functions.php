@@ -172,3 +172,9 @@ function tugasin_get_current_url()
     global $wp;
     return home_url(add_query_arg(array(), $wp->request));
 }
+
+/**
+ * Disable strict 404 guessing
+ * Prevents WordPress from redirecting to "similar" posts when a 404 occurs.
+ */
+add_filter('do_redirect_guess_404_permalink', '__return_false');
