@@ -386,6 +386,17 @@ body.menu-open .mobile-toggle {
         justify-content: center;
     }
 
+    /* Center breadcrumb on mobile */
+    .tugasin-breadcrumb {
+        justify-content: center;
+    }
+
+    /* Center hero paragraph block if it has max-width */
+    .hero-content p {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
     /* Mobile Menu Full Width */
     .mobile-menu {
         width: 100%;
