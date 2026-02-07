@@ -163,21 +163,21 @@ class Tugasin_Featured_Image
 
         // Initialize cron on first load if enabled
         if (get_option('tugasin_fig_enable_backfill', false) && !wp_next_scheduled('tugasin_fig_backfill_cron')) {
-            wp_schedule_event(time(), 'tugasin_30_mins', 'tugasin_fig_backfill_cron');
+            wp_schedule_event(time(), 'tugasin_1_min', 'tugasin_fig_backfill_cron');
         }
     }
 
     /**
-     * Add custom cron schedule for 30 minutes
+     * Add custom cron schedule for 1 minute
      * 
      * @param array $schedules Existing schedules.
      * @return array Modified schedules.
      */
     public function add_cron_schedule($schedules)
     {
-        $schedules['tugasin_30_mins'] = array(
-            'interval' => 1800, // 30 minutes in seconds
-            'display' => __('Every 30 Minutes', 'tugasin'),
+        $schedules['tugasin_1_min'] = array(
+            'interval' => 60, // 1 minute in seconds
+            'display' => __('Every 1 Minute', 'tugasin'),
         );
         return $schedules;
     }
@@ -194,7 +194,7 @@ class Tugasin_Featured_Image
 
         if ($new_value && !$timestamp) {
             // Enable: schedule cron
-            wp_schedule_event(time(), 'tugasin_30_mins', 'tugasin_fig_backfill_cron');
+            wp_schedule_event(time(), 'tugasin_1_min', 'tugasin_fig_backfill_cron');
         } elseif (!$new_value && $timestamp) {
             // Disable: unschedule cron
             wp_unschedule_event($timestamp, 'tugasin_fig_backfill_cron');
@@ -222,7 +222,7 @@ class Tugasin_Featured_Image
         $args = array(
             'post_type' => 'post',
             'post_status' => 'publish',
-            'posts_per_page' => 5, // Limit to 5 per run
+            'posts_per_page' => 1, // Limit to 1 per run (every minute)
             'meta_query' => array(
                 array(
                     'key' => '_thumbnail_id',
