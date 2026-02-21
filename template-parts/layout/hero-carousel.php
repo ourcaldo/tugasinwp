@@ -36,7 +36,7 @@ $default_tutors = array(
         $active_class = ($i === 0) ? ' active' : '';
         ?>
         <div class="tutor-card<?php echo $active_class; ?>">
-            <img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($name . ' - ' . $role); ?>">
+            <img src="<?php echo esc_url($image); ?>" alt="<?php echo esc_attr($name . ' - ' . $role); ?>" loading="<?php echo ($i === 0) ? 'eager' : 'lazy'; ?>">
             <strong class="tutor-name"><?php echo esc_html($name); ?></strong>
             <p><?php echo esc_html($role); ?></p>
             <div class="tutor-rating">

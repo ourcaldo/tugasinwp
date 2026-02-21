@@ -56,7 +56,7 @@ function tugasin_breadcrumb() {
         }
         
         // Current Post Title
-        echo '<span class="breadcrumb-current">' . get_the_title() . '</span>';
+        echo '<span class="breadcrumb-current">' . esc_html( get_the_title() ) . '</span>';
     } elseif ( is_singular( 'university' ) ) {
         // University Archive link
         echo '<a href="' . esc_url( get_post_type_archive_link( 'university' ) ) . '" class="breadcrumb-link">' . esc_html__( 'Kamus Kampus', 'tugasin' ) . '</a>';
@@ -71,7 +71,7 @@ function tugasin_breadcrumb() {
         }
         
         // Current Post Title
-        echo '<span class="breadcrumb-current">' . get_the_title() . '</span>';
+        echo '<span class="breadcrumb-current">' . esc_html( get_the_title() ) . '</span>';
     } elseif ( is_singular( 'post' ) ) {
         // Blog link
         $blog_url = $blog_page_id ? get_permalink( $blog_page_id ) : home_url( '/blog/' );
@@ -87,7 +87,7 @@ function tugasin_breadcrumb() {
         }
         
         // Post title
-        echo '<span class="breadcrumb-current">' . get_the_title() . '</span>';
+        echo '<span class="breadcrumb-current">' . esc_html( get_the_title() ) . '</span>';
     } elseif ( is_home() ) {
         // Blog archive page
         echo '<span class="breadcrumb-current">' . esc_html( $blog_title ) . '</span>';
@@ -125,11 +125,11 @@ function tugasin_breadcrumb() {
             $ancestors = get_post_ancestors( $post->ID );
             $ancestors = array_reverse( $ancestors );
             foreach ( $ancestors as $ancestor ) {
-                echo '<a href="' . esc_url( get_permalink( $ancestor ) ) . '" class="breadcrumb-link">' . get_the_title( $ancestor ) . '</a>';
+                echo '<a href="' . esc_url( get_permalink( $ancestor ) ) . '" class="breadcrumb-link">' . esc_html( get_the_title( $ancestor ) ) . '</a>';
                 echo $separator;
             }
         }
-        echo '<span class="breadcrumb-current">' . get_the_title() . '</span>';
+        echo '<span class="breadcrumb-current">' . esc_html( get_the_title() ) . '</span>';
     } elseif ( is_archive() ) {
         echo '<span class="breadcrumb-current">' . get_the_archive_title() . '</span>';
     }
@@ -150,25 +150,37 @@ function tugasin_pagination() {
     $paged = get_query_var( 'paged' ) ? absint( get_query_var( 'paged' ) ) : 1;
     $max   = intval( $wp_query->max_num_pages );
 
-    echo '<div class="tugasin-pagination" style="display: flex; justify-content: center; margin-top: 60px; gap: 8px;">';
+    echo '<div class="tugasin-pagination">';
 
     // Previous
     if ( $paged > 1 ) {
-        echo '<a href="' . esc_url( get_pagenum_link( $paged - 1 ) ) . '" class="btn btn-outline" style="width: 40px; height: 40px; padding: 0; justify-content: center; border-color: #e5e7eb;"><i class="fas fa-chevron-left"></i></a>';
+        echo '<a href="' . esc_url( get_pagenum_link( $paged - 1 ) ) . '" class="btn btn-outline"><i class="fas fa-chevron-left"></i></a>';
     }
 
-    // Page numbers
+    // Page numbers with ellipsis
+    $range = 2;
+    $show_dots_start = false;
+    $show_dots_end = false;
+
     for ( $i = 1; $i <= $max; $i++ ) {
-        if ( $i === $paged ) {
-            echo '<span class="btn btn-primary" style="width: 40px; height: 40px; padding: 0; justify-content: center;">' . $i . '</span>';
-        } else {
-            echo '<a href="' . esc_url( get_pagenum_link( $i ) ) . '" class="btn btn-outline" style="width: 40px; height: 40px; padding: 0; justify-content: center; border-color: #e5e7eb;">' . $i . '</a>';
+        if ( $i === 1 || $i === $max || ( $i >= $paged - $range && $i <= $paged + $range ) ) {
+            if ( $i === $paged ) {
+                echo '<span class="current">' . $i . '</span>';
+            } else {
+                echo '<a href="' . esc_url( get_pagenum_link( $i ) ) . '">' . $i . '</a>';
+            }
+        } elseif ( $i < $paged && ! $show_dots_start ) {
+            $show_dots_start = true;
+            echo '<span class="pagination-ellipsis">&hellip;</span>';
+        } elseif ( $i > $paged && ! $show_dots_end ) {
+            $show_dots_end = true;
+            echo '<span class="pagination-ellipsis">&hellip;</span>';
         }
     }
 
     // Next
     if ( $paged < $max ) {
-        echo '<a href="' . esc_url( get_pagenum_link( $paged + 1 ) ) . '" class="btn btn-outline" style="width: 40px; height: 40px; padding: 0; justify-content: center; border-color: #e5e7eb;"><i class="fas fa-chevron-right"></i></a>';
+        echo '<a href="' . esc_url( get_pagenum_link( $paged + 1 ) ) . '" class="btn btn-outline"><i class="fas fa-chevron-right"></i></a>';
     }
 
     echo '</div>';
@@ -239,20 +251,19 @@ function tugasin_category_badge( $post_id = null ) {
         $terms = get_the_terms( $post_id, 'major_category' );
         if ( $terms && ! is_wp_error( $terms ) ) {
             $term = $terms[0];
-            echo '<span class="category-badge" style="display: inline-block; background: #fef3c7; color: #d97706; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700;">' . esc_html( $term->name ) . '</span>';
+            echo '<span class="category-badge category-badge--major">' . esc_html( $term->name ) . '</span>';
         }
     } elseif ( 'university' === $post_type ) {
         $terms = get_the_terms( $post_id, 'university_type' );
         if ( $terms && ! is_wp_error( $terms ) ) {
             $term = $terms[0];
-            $bg_color = ( 'PTS' === $term->name ) ? '#fee2e2' : '#fef3c7';
-            $text_color = ( 'PTS' === $term->name ) ? '#dc2626' : '#d97706';
-            echo '<span class="category-badge" style="display: inline-block; background: ' . $bg_color . '; color: ' . $text_color . '; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700;">' . esc_html( $term->name ) . '</span>';
+            $variant = ( 'PTS' === $term->name ) ? 'category-badge--university-pts' : 'category-badge--university';
+            echo '<span class="category-badge ' . esc_attr( $variant ) . '">' . esc_html( $term->name ) . '</span>';
         }
     } elseif ( 'post' === $post_type ) {
         $categories = get_the_category( $post_id );
         if ( ! empty( $categories ) ) {
-            echo '<span class="category-badge" style="display: inline-block; background: var(--pastel-indigo); color: var(--primary); padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 700;">' . esc_html( $categories[0]->name ) . '</span>';
+            echo '<span class="category-badge category-badge--post">' . esc_html( $categories[0]->name ) . '</span>';
         }
     }
 }
@@ -270,7 +281,7 @@ function tugasin_accreditation_badge( $post_id = null ) {
     $terms = get_the_terms( $post_id, 'accreditation' );
     if ( $terms && ! is_wp_error( $terms ) ) {
         $term = $terms[0];
-        echo '<span class="accreditation-badge" style="display: inline-block; background: #ecfdf5; color: #059669; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 600;">' . esc_html( $term->name ) . '</span>';
+        echo '<span class="accreditation-badge">' . esc_html( $term->name ) . '</span>';
     }
 }
 
@@ -338,7 +349,7 @@ function tugasin_seo_content_box( $visible_paragraphs = 5, $button_text = '', $c
         ?>
         <div class="seo-content-box seo-content-short">
             <div class="seo-content-inner entry-content">
-                <?php echo $content; ?>
+                <?php echo wp_kses_post( $content ); ?>
             </div>
         </div>
         <?php
@@ -354,12 +365,12 @@ function tugasin_seo_content_box( $visible_paragraphs = 5, $button_text = '', $c
         <div class="seo-content-inner entry-content">
             <!-- Visible content (always shown) -->
             <div class="seo-content-visible">
-                <?php echo implode( "\n", $visible_blocks ); ?>
+                <?php echo wp_kses_post( implode( "\n", $visible_blocks ) ); ?>
             </div>
             
             <!-- Hidden content (expandable, but always in DOM for crawlers) -->
             <div class="seo-content-hidden" id="seo-content-hidden">
-                <?php echo implode( "\n", $hidden_blocks ); ?>
+                <?php echo wp_kses_post( implode( "\n", $hidden_blocks ) ); ?>
             </div>
         </div>
         

@@ -11,17 +11,17 @@ get_header();
 
 <main id="main-content" role="main">
 <!-- Hero -->
-<section class="hero" style="padding: 120px 0 80px;">
-    <div class="container" style="text-align: center;">
-        <h1 style="font-size: 2.5rem; margin-bottom: 24px;">
+<section class="hero search-hero">
+    <div class="container">
+        <h1>
             <?php
             printf(
                 esc_html__( 'Hasil pencarian: "%s"', 'tugasin' ),
-                '<span style="color: var(--accent-btn);">' . get_search_query() . '</span>'
+                '<span class="search-query">' . get_search_query() . '</span>'
             );
             ?>
         </h1>
-        <p style="color: rgba(255,255,255,0.8); font-size: 1.2rem;">
+        <p>
             <?php
             global $wp_query;
             printf(
@@ -34,17 +34,17 @@ get_header();
 </section>
 
 <!-- Results -->
-<section style="padding: 60px 0 100px; background: var(--bg-body);">
+<section class="search-results-section">
     <div class="container">
         <?php if ( have_posts() ) : ?>
-        <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px;">
+        <div class="search-results-grid">
             <?php
             while ( have_posts() ) :
                 the_post();
                 $post_type = get_post_type();
                 ?>
-                <article style="background: white; border-radius: 16px; padding: 24px; box-shadow: var(--shadow-sm);">
-                    <span style="display: inline-block; background: var(--pastel-indigo); color: var(--primary); padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; margin-bottom: 12px;">
+                <article class="search-result-card">
+                    <span class="search-result-type">
                         <?php
                         if ( 'major' === $post_type ) {
                             esc_html_e( 'Jurusan', 'tugasin' );
@@ -55,15 +55,15 @@ get_header();
                         }
                         ?>
                     </span>
-                    <h3 style="font-size: 1.1rem; margin-bottom: 12px;">
-                        <a href="<?php the_permalink(); ?>" style="color: inherit; text-decoration: none;">
+                    <h3>
+                        <a href="<?php the_permalink(); ?>">
                             <?php the_title(); ?>
                         </a>
                     </h3>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 16px;">
+                    <p>
                         <?php echo wp_trim_words( get_the_excerpt(), 15 ); ?>
                     </p>
-                    <a href="<?php the_permalink(); ?>" class="btn btn-outline" style="padding: 8px 16px; font-size: 0.85rem;">
+                    <a href="<?php the_permalink(); ?>" class="btn btn-outline">
                         <?php esc_html_e( 'Lihat', 'tugasin' ); ?> →
                     </a>
                 </article>
@@ -75,12 +75,12 @@ get_header();
         <?php tugasin_pagination(); ?>
         
         <?php else : ?>
-        <div style="text-align: center; padding: 80px 0;">
-            <div style="width: 80px; height: 80px; background: var(--pastel-gray); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;">
-                <i class="fas fa-search" style="font-size: 2rem; color: var(--text-secondary);"></i>
+        <div class="search-no-results">
+            <div class="search-no-results-icon">
+                <i class="fas fa-search"></i>
             </div>
-            <h2 style="margin-bottom: 12px;"><?php esc_html_e( 'Tidak ada hasil ditemukan', 'tugasin' ); ?></h2>
-            <p style="color: var(--text-secondary); margin-bottom: 24px;"><?php esc_html_e( 'Coba kata kunci lain atau jelajahi halaman kami.', 'tugasin' ); ?></p>
+            <h2><?php esc_html_e( 'Tidak ada hasil ditemukan', 'tugasin' ); ?></h2>
+            <p><?php esc_html_e( 'Coba kata kunci lain atau jelajahi halaman kami.', 'tugasin' ); ?></p>
             <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="btn btn-primary">
                 <?php esc_html_e( 'Kembali ke Home', 'tugasin' ); ?>
             </a>

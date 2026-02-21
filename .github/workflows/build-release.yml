@@ -14,32 +14,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Generate CSS Bundle
-        run: |
-          cd assets/css
-          cat \
-            base/_variables.css \
-            base/_reset.css \
-            base/_typography.css \
-            utilities/_accessibility.css \
-            utilities/_animations.css \
-            layout/_grids.css \
-            layout/_header.css \
-            layout/_footer.css \
-            layout/_hero.css \
-            components/_buttons.css \
-            components/_cards.css \
-            components/_forms.css \
-            components/_faq.css \
-            components/_related-posts.css \
-            components/_seo-content.css \
-            components/_toc.css \
-            components/_youtube-facade.css \
-            pages/_archive.css \
-            pages/_cpt.css \
-            pages/_single-post.css \
-            _responsive.css \
-            > main-bundle.css
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Build Theme Assets
+        run: python build/build_theme.py
 
       - name: Create Theme ZIP
         run: |

@@ -2,6 +2,11 @@
 /**
  * 404 Error Page Template (Fullscreen)
  *
+ * DESIGN DECISION: This template intentionally bypasses get_header()/get_footer()
+ * to provide a fullscreen error page experience. It uses its own <!DOCTYPE html>
+ * and <head> while still calling wp_head()/wp_footer() so plugins and the admin
+ * bar can function. The header/footer elements are hidden via CSS.
+ *
  * Uses WordPress hooks (wp_head/wp_footer) while maintaining fullscreen design.
  *
  * @package TugasinWP

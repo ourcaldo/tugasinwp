@@ -143,7 +143,7 @@ class Tugasin_Ajax
         $cat_name = !empty($cats) ? $cats[0]->name : '';
 
         $content = get_the_content();
-        $word_count = str_word_count(strip_tags($content));
+        $word_count = preg_match_all('/\S+/', strip_tags($content));
         $read_time = max(1, ceil($word_count / 200));
 
         $thumb_url = get_the_post_thumbnail_url(null, 'large');
@@ -166,7 +166,7 @@ class Tugasin_Ajax
                 <p class="card-excerpt"><?php echo wp_trim_words(get_the_excerpt(), 20, '...'); ?></p>
                 <div class="card-meta">
                     <span><i class="far fa-calendar"></i> <?php echo get_the_date('d M Y'); ?></span>
-                    <span><i class="far fa-clock"></i> <?php echo esc_html($read_time); ?> min read</span>
+                    <span><i class="far fa-clock"></i> <?php printf(esc_html__('%d min read', 'tugasin'), $read_time); ?></span>
                 </div>
             </div>
         </div>
@@ -204,18 +204,41 @@ class Tugasin_Ajax
             return;
         }
         ?>
-        <div class="ajax-pagination">
-            <?php for ($i = 1; $i <= min($total_pages, 5); $i++):
-                $is_current = ($i == $current_page);
-                ?>
-                <a href="#" class="btn pagination-link <?php echo $is_current ? 'btn-primary' : 'btn-outline'; ?>"
-                    data-page="<?php echo esc_attr($i); ?>">
-                    <?php echo esc_html($i); ?>
+        <div class="ajax-pagination archive-pagination">
+            <?php if ($current_page > 1): ?>
+                <a href="#" class="btn btn-outline pagination-link"
+                    data-page="<?php echo esc_attr($current_page - 1); ?>">
+                    <i class="fas fa-chevron-left"></i>
                 </a>
-            <?php endfor; ?>
+            <?php endif; ?>
+
+            <?php
+            $range = 2;
+            $show_dots_start = false;
+            $show_dots_end = false;
+
+            for ($i = 1; $i <= $total_pages; $i++):
+                if ($i === 1 || $i === $total_pages || ($i >= $current_page - $range && $i <= $current_page + $range)):
+                    $is_current = ($i == $current_page);
+                    ?>
+                    <a href="#" class="btn pagination-link <?php echo $is_current ? 'btn-primary' : 'btn-outline'; ?>"
+                        data-page="<?php echo esc_attr($i); ?>">
+                        <?php echo esc_html($i); ?>
+                    </a>
+                    <?php
+                elseif ($i < $current_page && !$show_dots_start):
+                    $show_dots_start = true;
+                    echo '<span class="btn btn-outline pagination-ellipsis">&hellip;</span>';
+                elseif ($i > $current_page && !$show_dots_end):
+                    $show_dots_end = true;
+                    echo '<span class="btn btn-outline pagination-ellipsis">&hellip;</span>';
+                endif;
+            endfor;
+            ?>
 
             <?php if ($current_page < $total_pages): ?>
-                <a href="#" class="btn btn-outline pagination-link" data-page="<?php echo esc_attr($current_page + 1); ?>">
+                <a href="#" class="btn btn-outline pagination-link"
+                    data-page="<?php echo esc_attr($current_page + 1); ?>">
                     <i class="fas fa-chevron-right"></i>
                 </a>
             <?php endif; ?>

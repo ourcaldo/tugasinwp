@@ -52,7 +52,7 @@ $logo_url = $logo_id ? wp_get_attachment_image_url($logo_id, 'medium') : '';
     </div>
 
     <div class="container footer-bottom">
-        <p>&copy; <?php echo esc_html(date('Y')); ?> <?php bloginfo('name'); ?>.
+        <p>&copy; <?php echo esc_html(wp_date('Y')); ?> <?php bloginfo('name'); ?>.
             <?php esc_html_e('All rights reserved.', 'tugasin'); ?></p>
     </div>
 </footer>

@@ -174,10 +174,10 @@ class Tugasin_Setup
             TUGASIN_VERSION
         );
 
-        // Font Awesome 6.4 (will be dequeued and re-registered in dequeue_conflicting_styles)
+        // Font Awesome 6.4 - Self-hosted for performance & GDPR (v2.26.0)
         wp_enqueue_style(
             'tugasin-font-awesome',
-            'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
+            TUGASIN_URI . '/assets/fonts/fontawesome/all.min.css',
             array(),
             '6.4.0'
         );
@@ -191,10 +191,11 @@ class Tugasin_Setup
             TUGASIN_VERSION
         );
 
-        // Main JavaScript
+        // Main JavaScript (use minified in production)
+        $js_file = file_exists(TUGASIN_DIR . '/assets/js/main.min.js') ? '/assets/js/main.min.js' : '/assets/js/main.js';
         wp_enqueue_script(
             'tugasin-main',
-            TUGASIN_URI . '/assets/js/main.js',
+            TUGASIN_URI . $js_file,
             array(),
             TUGASIN_VERSION,
             true
@@ -203,7 +204,7 @@ class Tugasin_Setup
         // Localize script with data
         wp_localize_script('tugasin-main', 'tugasinData', array(
             'ajaxUrl' => admin_url('admin-ajax.php'),
-            'nonce' => wp_create_nonce('tugasin_nonce'),
+            'nonce' => wp_create_nonce('tugasin_main_nonce'),
             'whatsappUrl' => tugasin_get_whatsapp_url(),
         ));
 
@@ -249,11 +250,11 @@ class Tugasin_Setup
         }
 
         // Add has-toc class for single posts with table of contents
-        if (is_singular('post') && function_exists('tugasin_generate_toc')) {
-            $content = get_the_content();
-            $content = apply_filters('the_content', $content);
-            $toc_data = tugasin_generate_toc($content);
-            if (!empty($toc_data['toc']) && $toc_data['count'] >= 3) {
+        if (is_singular('post')) {
+            // Count headings directly without running the_content filters (avoids double processing)
+            $raw_content = get_the_content();
+            $heading_count = preg_match_all('/<h[2-3][^>]*>/i', $raw_content);
+            if ($heading_count >= 3) {
                 $classes[] = 'has-toc';
             }
         }

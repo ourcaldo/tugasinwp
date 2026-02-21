@@ -16,17 +16,17 @@ get_header();
         ?>
         <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
             <!-- Hero -->
-            <section class="hero" style="padding: 120px 0 80px;">
+            <section class="hero page-hero">
                 <div class="container">
                     <?php tugasin_breadcrumb(); ?>
-                    <h1 style="font-size: 3rem; margin-top: 24px;"><?php the_title(); ?></h1>
+                    <h1><?php the_title(); ?></h1>
                 </div>
             </section>
 
             <!-- Content -->
-            <section style="padding: 60px 0 100px;">
-                <div class="container" style="max-width: 900px;">
-                    <div class="entry-content" style="font-size: 1.1rem; line-height: 1.8;">
+            <section class="page-content-section">
+                <div class="container page-content-wrapper">
+                    <div class="entry-content">
                         <?php
                         the_content();
 

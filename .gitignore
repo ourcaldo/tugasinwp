@@ -21,5 +21,8 @@ wp-config.php
 # Act secrets
 .secrets
 
+# Demo content (generated on import)
+demo-content/
+
 # Build Artifacts
 *.zip

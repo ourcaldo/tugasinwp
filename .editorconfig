@@ -13,7 +13,7 @@ trim_trailing_whitespace = true
 
 [*.php]
 indent_size = 4
-indent_style = tab
+indent_style = space
 
 [*.{css,scss,less}]
 indent_size = 4

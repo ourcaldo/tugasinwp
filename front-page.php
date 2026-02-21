@@ -24,7 +24,9 @@ get_header();
                         $placeholder = get_template_directory_uri() . '/assets/images/placeholder-avatar.jpg';
                         $testimonials = tugasin_get_testimonials( 'joki_skripsi' );
                         
-                        // Show up to 3 testimonial avatars
+                        // Show up to 3 testimonial avatars.
+                        // If no testimonials are configured, $testimonials is an empty array
+                        // and the while-loop below fills all 3 slots with placeholders.
                         $shown = 0;
                         foreach ( $testimonials as $testimonial ) :
                             if ( $shown >= 3 ) break;

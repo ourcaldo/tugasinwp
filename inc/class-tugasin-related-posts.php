@@ -105,7 +105,8 @@ class Tugasin_Related_Posts
             'post_type' => 'post',
             'post_status' => 'publish',
             'ignore_sticky_posts' => true,
-            'orderby' => 'rand',
+            'orderby' => 'date',
+            'order' => 'DESC',
         );
 
         $query = new WP_Query($args);

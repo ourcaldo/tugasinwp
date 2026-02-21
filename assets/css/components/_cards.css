@@ -473,3 +473,47 @@
     font-size: 0.85rem;
     color: var(--text-secondary);
 }
+
+/* ==========================================================================
+   CATEGORY BADGES
+   ========================================================================== */
+.category-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.category-badge--major {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.category-badge--university {
+    background: #fef3c7;
+    color: #d97706;
+}
+
+.category-badge--university-pts {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.category-badge--post {
+    background: var(--pastel-indigo);
+    color: var(--primary);
+    padding: 4px 12px;
+    font-size: 0.8rem;
+}
+
+/* Accreditation Badge */
+.accreditation-badge {
+    display: inline-block;
+    background: #ecfdf5;
+    color: #059669;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 600;
+}

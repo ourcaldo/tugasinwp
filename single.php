@@ -150,6 +150,13 @@ $has_toc = !empty($toc_data['toc']) && $toc_data['count'] >= 3; // Show TOC only
                 echo tugasin_get_bottom_related(get_the_ID(), 3);
             }
             ?>
+
+            <?php
+            // Display comments section if comments are open or there are existing comments
+            if (comments_open() || get_comments_number()) {
+                comments_template();
+            }
+            ?>
         </div>
     </article>
 

@@ -65,33 +65,34 @@ function tugasin_autoload_classes()
 tugasin_autoload_classes();
 
 /**
- * Initialize theme classes
+ * Initialize theme classes (singleton-safe)
+ *
+ * Uses a static registry to prevent double-instantiation
+ * if the hook fires more than once.
  */
 function tugasin_init()
 {
-    if (class_exists('Tugasin_Setup')) {
-        new Tugasin_Setup();
+    static $initialized = false;
+    if ($initialized) {
+        return;
     }
-    if (class_exists('Tugasin_CPT')) {
-        new Tugasin_CPT();
-    }
-    if (class_exists('Tugasin_ACF')) {
-        new Tugasin_ACF();
-    }
-    if (class_exists('Tugasin_Settings')) {
-        new Tugasin_Settings();
-    }
-    if (class_exists('Tugasin_Elementor')) {
-        new Tugasin_Elementor();
-    }
-    if (class_exists('Tugasin_Menu_Fields')) {
-        new Tugasin_Menu_Fields();
-    }
-    if (class_exists('Tugasin_Ajax')) {
-        new Tugasin_Ajax();
-    }
-    if (class_exists('Tugasin_Schema')) {
-        new Tugasin_Schema();
+    $initialized = true;
+
+    $classes = array(
+        'Tugasin_Setup',
+        'Tugasin_CPT',
+        'Tugasin_ACF',
+        'Tugasin_Settings',
+        'Tugasin_Elementor',
+        'Tugasin_Menu_Fields',
+        'Tugasin_Ajax',
+        'Tugasin_Schema',
+    );
+
+    foreach ($classes as $class) {
+        if (class_exists($class)) {
+            new $class();
+        }
     }
 }
 add_action('after_setup_theme', 'tugasin_init');
@@ -264,18 +265,34 @@ add_filter('ocdi/import_files', 'tugasin_ocdi_import_files');
  */
 function tugasin_ocdi_after_import()
 {
-    // Set front page
-    $front_page = get_page_by_title('Home');
-    if ($front_page) {
+    // Set front page (WP_Query replaces deprecated get_page_by_title)
+    $front_query = new WP_Query(array(
+        'post_type'      => 'page',
+        'title'          => 'Home',
+        'posts_per_page' => 1,
+        'post_status'    => 'publish',
+        'no_found_rows'  => true,
+    ));
+    if ($front_query->have_posts()) {
+        $front_page = $front_query->posts[0];
         update_option('page_on_front', $front_page->ID);
         update_option('show_on_front', 'page');
     }
+    wp_reset_postdata();
 
     // Set blog page
-    $blog_page = get_page_by_title('Blog');
-    if ($blog_page) {
+    $blog_query = new WP_Query(array(
+        'post_type'      => 'page',
+        'title'          => 'Blog',
+        'posts_per_page' => 1,
+        'post_status'    => 'publish',
+        'no_found_rows'  => true,
+    ));
+    if ($blog_query->have_posts()) {
+        $blog_page = $blog_query->posts[0];
         update_option('page_for_posts', $blog_page->ID);
     }
+    wp_reset_postdata();
 
     // Assign primary menu
     $main_menu = get_term_by('name', 'Primary Menu', 'nav_menu');
